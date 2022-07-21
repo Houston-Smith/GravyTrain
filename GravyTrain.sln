@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32516.85
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GravyTrain", "GravyTrain\GravyTrain.csproj", "{63EF4EC0-1825-4836-A42F-0CDAFB134F83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63EF4EC0-1825-4836-A42F-0CDAFB134F83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63EF4EC0-1825-4836-A42F-0CDAFB134F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63EF4EC0-1825-4836-A42F-0CDAFB134F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63EF4EC0-1825-4836-A42F-0CDAFB134F83}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0AF3C935-181C-4486-9F3F-0927695538C6}
+	EndGlobalSection
+EndGlobal

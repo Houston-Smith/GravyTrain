@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "U37r4+NH6q6rp2NFM3xSG3PU8lgAwjHOKtzP3g15rkk7xLb55hYnAcYx4FWVjFD4hpta94k5opxGA1pVopfDsA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Houst\\workspace\\csharp\\GravyTrain\\GravyTrain\\GravyTrain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Houst\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Houst\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Houst\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\Houst\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\Houst\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\Houst\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
