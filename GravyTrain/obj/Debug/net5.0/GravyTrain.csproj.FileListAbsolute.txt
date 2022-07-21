@@ -1,0 +1,7 @@
+C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\GravyTrain.csproj.AssemblyReference.cache
+C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\GravyTrain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\GravyTrain.AssemblyInfoInputs.cache
+C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\GravyTrain.AssemblyInfo.cs
+C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\GravyTrain.csproj.CoreCompileInputs.cache
+C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\GravyTrain.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\GravyTrain.MvcApplicationPartsAssemblyInfo.cache

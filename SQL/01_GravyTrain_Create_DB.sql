@@ -1,6 +1,21 @@
-CREATE TABLE [User] (
+USE [master]
+
+IF db_id('GravyTrain') IS NULL
+  CREATE DATABASE [GravyTrain]
+GO
+
+USE [GravyTrain]
+GO
+
+
+DROP TABLE IF EXISTS [UserProfile];
+DROP TABLE IF EXISTS [Review];
+DROP TABLE IF EXISTS [UserReview];
+GO
+
+CREATE TABLE [UserProfile] (
   [Id] int PRIMARY KEY NOT NULL,
-  [ExternalId] nvarchar(255) NOT NULL,
+  [FirebaseUserId] nvarchar(255) NOT NULL,
   [Username] nvarchar(255) NOT NULL,
   [FirstName] nvarchar(255) NOT NULL,
   [LastName] nvarchar(255) NOT NULL,
@@ -31,7 +46,7 @@ CREATE TABLE [UserReview] (
 )
 GO
 
-ALTER TABLE [UserReview] ADD FOREIGN KEY ([UserId]) REFERENCES [User] ([Id])
+ALTER TABLE [UserReview] ADD FOREIGN KEY ([UserId]) REFERENCES [UserProfile] ([Id])
 GO
 
 ALTER TABLE [UserReview] ADD FOREIGN KEY ([ReviewId]) REFERENCES [Review] ([Id])
