@@ -50,3 +50,6 @@ C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\refint\Gr
 C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\GravyTrain.pdb
 C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\GravyTrain.genruntimeconfig.cache
 C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\obj\Debug\net5.0\ref\GravyTrain.dll
+C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\bin\Debug\net5.0\Client\gravytrain\package-lock.json
+C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\bin\Debug\net5.0\Client\gravytrain\package.json
+C:\Users\Houst\workspace\csharp\GravyTrain\GravyTrain\bin\Debug\net5.0\Client\gravytrain\public\manifest.json

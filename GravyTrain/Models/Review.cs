@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
             public int Id { get; set; }
 
             [Required]
+            [MaxLength(50)]
             public string LocationName { get; set; }
 
             [Required]
@@ -38,4 +39,3 @@ using System.ComponentModel.DataAnnotations;
             public int UserProfileId { get; set; }
         }
     }
-}
