@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GravyTrain.Repositories
 {
-    public class ReviewRepository : BaseRepository, IUserProfileRepository, IReviewRepository
+    public class ReviewRepository : BaseRepository, IReviewRepository
     {
         public ReviewRepository(IConfiguration configuration) : base(configuration) { }
 
