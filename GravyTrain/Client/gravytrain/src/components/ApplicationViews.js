@@ -12,9 +12,8 @@ export default function ApplicationViews({ isLoggedIn, getLoggedInUser }) {
         <Route path="/">
           <Route
             index
-            element={isLoggedIn ? <PostList /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <Login /> : <Navigate to="/login" />}
           />          
-
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} /> 
           <Route path="*" element={<p>Whoops, nothing here...</p>} />

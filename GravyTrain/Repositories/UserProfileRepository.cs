@@ -80,9 +80,9 @@ namespace GravyTrain.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT Id, Username, FirebaseUserId, up.FirstName, up.LastName, up.Email, up.CreateDate
+                         SELECT Id, Username, FirebaseUserId, FirstName, LastName, Email, CreateDate
                          FROM UserProfile
-                         ORDER BY up.FirstName";
+                         ORDER BY FirstName";
                     var reader = cmd.ExecuteReader();
                     var users = new List<UserProfile>();
 
@@ -90,7 +90,7 @@ namespace GravyTrain.Repositories
                     {
                         users.Add(new UserProfile()
                         {
-                            Id = DbUtils.GetInt(reader, "UserId"),
+                            Id = DbUtils.GetInt(reader, "Id"),
                             FirebaseUserId = DbUtils.GetString(reader, "FirebaseUserId"),
                             Username = DbUtils.GetString(reader, "Username"),
                             FirstName = DbUtils.GetString(reader, "FirstName"),
@@ -116,7 +116,7 @@ namespace GravyTrain.Repositories
                     cmd.CommandText = @"
                         SELECT Id, Username, FirstName, LastName, Email, CreateDate
                         FROM UserProfile
-                        WHERE up.Id = @Id";
+                        WHERE Id = @Id";
                     cmd.Parameters.AddWithValue("@Id", userId);
                     var reader = cmd.ExecuteReader();
                     if(reader.Read())
