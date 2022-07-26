@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS [UserReview];
 GO
 
 CREATE TABLE [UserProfile] (
-  [Id] int PRIMARY KEY NOT NULL,
+  [Id] int PRIMARY KEY IDENTITY,
   [FirebaseUserId] nvarchar(255) NOT NULL,
   [Username] nvarchar(255) NOT NULL,
   [FirstName] nvarchar(255) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE [UserProfile] (
 GO
 
 CREATE TABLE [Review] (
-  [Id] int PRIMARY KEY NOT NULL,
+  [Id] int PRIMARY KEY IDENTITY,
   [LocationName] nvarchar(255) NOT NULL,
   [DateReviewed] datetime NOT NULL,
   [ButteryScore] int NOT NULL,
@@ -40,14 +40,11 @@ CREATE TABLE [Review] (
 GO
 
 CREATE TABLE [UserReview] (
-  [Id] int PRIMARY KEY NOT NULL,
+  [Id] int PRIMARY KEY IDENTITY,
   [UserId] int NOT NULL,
   [ReviewId] int NOT NULL
+
+  CONSTRAINT [FK_UserReview_UserProfile] FOREIGN KEY ([UserId]) REFERENCES [UserProfile] ([Id]),
+  CONSTRAINT [FK_UserReview_Review] FOREIGN KEY ([ReviewId]) REFERENCES [Review] ([Id])
 )
-GO
-
-ALTER TABLE [UserReview] ADD FOREIGN KEY ([UserId]) REFERENCES [UserProfile] ([Id])
-GO
-
-ALTER TABLE [UserReview] ADD FOREIGN KEY ([ReviewId]) REFERENCES [Review] ([Id])
 GO

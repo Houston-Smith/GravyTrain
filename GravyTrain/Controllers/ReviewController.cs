@@ -1,6 +1,7 @@
 ﻿using GravyTrain.Models;
 using GravyTrain.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace GravyTrain.Controllers
 {
@@ -23,9 +24,23 @@ namespace GravyTrain.Controllers
 
 
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public IActionResult GetById(int id)
         {
             var review = _ReviewRepository.GetReviewById(id);
+            if (review == null)
+            {
+                return NotFound();
+            }
+            return Ok(review);
+        }
+
+
+
+
+        [HttpGet("User/{userId}")]
+        public IActionResult GetByUserId(int userId)
+        {
+            var review = _ReviewRepository.GetReviewsByUserId(userId);
             if (review == null)
             {
                 return NotFound();
@@ -37,6 +52,7 @@ namespace GravyTrain.Controllers
         [HttpPost]
         public IActionResult Post(Review review)
         {
+            review.DateReviewed = DateTime.Now;
             _ReviewRepository.Add(review);
             return CreatedAtAction("Get", new { id = review.Id }, review);
         }

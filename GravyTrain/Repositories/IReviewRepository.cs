@@ -9,6 +9,7 @@ namespace GravyTrain.Repositories
         void Delete(int id);
         List<Review> GetAllReviews();
         Review GetReviewById(int reviewId);
+        List<Review> GetReviewsByUserId(int userId);
         void Update(Review review);
     }
 }

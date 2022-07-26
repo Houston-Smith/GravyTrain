@@ -1,3 +1,4 @@
+import { getToken } from "./authManager";
 const baseUrl = "/api/UserProfile";
 
 export const getAllUsers = () => {
@@ -24,3 +25,14 @@ export const changeUserType = (user) => {
         body: JSON.stringify(user),
     });
 };
+
+export const getLoggedInUser = () => {
+    return getToken().then((token) =>
+      fetch(baseUrl + `/GetCurrentUserInfo`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((response) => response.json())
+    );
+  };

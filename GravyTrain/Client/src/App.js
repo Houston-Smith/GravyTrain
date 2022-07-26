@@ -4,11 +4,14 @@ import { Spinner } from 'reactstrap';
 import Header from './components/Header';
 import ApplicationViews from "./components/ApplicationViews";
 import { onLoginStatusChange } from "./modules/authManager";
+import { getLoggedInUser } from './modules/userManager';
+import firebase from 'firebase';
 import './App.css';
 
-function App({getLoggedInUser}) {
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+function App() {
 
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  
   useEffect(() => {
     onLoginStatusChange(setIsLoggedIn);
   }, []);
@@ -20,7 +23,7 @@ function App({getLoggedInUser}) {
   return (
     <Router>
       <Header isLoggedIn={isLoggedIn}/>
-      <ApplicationViews isLoggedIn={isLoggedIn} getLoggedInUser={getLoggedInUser}/>
+      <ApplicationViews isLoggedIn={isLoggedIn}/>
     </Router>
   );
 }

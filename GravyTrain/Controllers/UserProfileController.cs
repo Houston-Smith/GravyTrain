@@ -2,6 +2,7 @@
 using GravyTrain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Claims;
 
 namespace GravyTrain.Controllers
 {
@@ -15,7 +16,19 @@ namespace GravyTrain.Controllers
             _userProfileRepository = userProfileRepository;
         }
 
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
+        }
 
+        [HttpGet("GetCurrentUserInfo")]
+        public IActionResult GetLoggedInUser()
+        {
+            UserProfile user = GetCurrentUserProfile();
+            user.FirebaseUserId = "XXXX";
+            return Ok(user);
+        }
 
         [HttpGet("{firebaseUserId}")]
         public IActionResult GetUserProfile(string firebaseUserId)

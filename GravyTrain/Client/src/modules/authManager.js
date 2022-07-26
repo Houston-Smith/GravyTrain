@@ -15,6 +15,7 @@ const _doesUserExist = (firebaseUserId) => {
 };
 
 const _saveUser = (userProfile) => {
+  console.log(userProfile)
   return getToken().then((token) =>
     fetch(_apiUrl, {
       method: "POST",

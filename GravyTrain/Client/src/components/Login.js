@@ -12,7 +12,7 @@ export default function Login() {
   const loginSubmit = (e) => {
     e.preventDefault();
     login(email, password)
-      .then(() => navigate("/"))
+      .then(() => navigate("/review"))
       .catch(() => alert("Invalid email or password"));
   };
 
@@ -40,7 +40,7 @@ export default function Login() {
           <Button>Login</Button>
         </FormGroup>
         <em>
-          Not registered? <Link to="register">Register</Link>
+          Not registered? <Link to="/register">Register</Link>
         </em>
       </fieldset>
     </Form>
