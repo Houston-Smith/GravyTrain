@@ -8,13 +8,14 @@ USE [GravyTrain]
 GO
 
 
-DROP TABLE IF EXISTS [UserProfile];
+DROP TABLE IF EXISTS [TagReview];
 DROP TABLE IF EXISTS [Review];
-DROP TABLE IF EXISTS [UserReview];
+DROP TABLE IF EXISTS [Tag];
+DROP TABLE IF EXISTS [UserProfile];
 GO
 
 CREATE TABLE [UserProfile] (
-  [Id] int PRIMARY KEY NOT NULL,
+  [Id] int PRIMARY KEY IDENTITY,
   [FirebaseUserId] nvarchar(255) NOT NULL,
   [Username] nvarchar(255) NOT NULL,
   [FirstName] nvarchar(255) NOT NULL,
@@ -25,8 +26,9 @@ CREATE TABLE [UserProfile] (
 GO
 
 CREATE TABLE [Review] (
-  [Id] int PRIMARY KEY NOT NULL,
+  [Id] int PRIMARY KEY IDENTITY,
   [LocationName] nvarchar(255) NOT NULL,
+  [LocationAddress] nvarchar(255),
   [DateReviewed] datetime NOT NULL,
   [ButteryScore] int NOT NULL,
   [FlakeyScore] int NOT NULL,
@@ -35,19 +37,29 @@ CREATE TABLE [Review] (
   [DeliveryScore] int NOT NULL,
   [AverageScore] int NOT NULL,
   [Notes] nvarchar(255),
+  [GravyType] nvarchar(255) NOT NULL,
   [UserProfileId] int NOT NULL
 )
 GO
 
-CREATE TABLE [UserReview] (
-  [Id] int PRIMARY KEY NOT NULL,
-  [UserId] int NOT NULL,
-  [ReviewId] int NOT NULL
+CREATE TABLE [TagReview] (
+  [Id] int PRIMARY KEY IDENTITY,
+  [ReviewId] int NOT NULL,
+  [TagId] int NOT NULL
 )
 GO
 
-ALTER TABLE [UserReview] ADD FOREIGN KEY ([UserId]) REFERENCES [UserProfile] ([Id])
+CREATE TABLE [Tag] (
+  [Id] int PRIMARY KEY IDENTITY,
+  [Name] nvarchar(255) NOT NULL
+)
 GO
 
-ALTER TABLE [UserReview] ADD FOREIGN KEY ([ReviewId]) REFERENCES [Review] ([Id])
+ALTER TABLE [Review] ADD FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
+GO
+
+ALTER TABLE [TagReview] ADD FOREIGN KEY ([ReviewId]) REFERENCES [Review] ([Id])
+GO
+
+ALTER TABLE [TagReview] ADD FOREIGN KEY ([TagId]) REFERENCES [Tag] ([Id])
 GO
