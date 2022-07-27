@@ -3,6 +3,7 @@ import { Table } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { getReviewByUserId, deleteReview} from "../../modules/reviewManager";
 import { getLoggedInUser } from "../../modules/userManager";
+import "./Review.css"
 
 export const ReviewList = () => {
   
@@ -26,31 +27,37 @@ export const ReviewList = () => {
   };
 
   return (
-    <div className="user-display">
-        <Table>
-            <thead>
-                <tr>
-                    <th>Location Name</th>
-                    <th>Average Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                {reviews.map(review => 
-                <>
+    <main>
+      <section className="review-box-outer-1">
+        <section className="review-box-outer-2">
+          <section className="review-box">
+            <Table>
+                <thead>
                     <tr>
-                        <td>{review.locationName}</td>  
-                        <td>{review.averageScore}</td>                    
-                        <td>
-                        <button onClick={() => callDeleteReview(review.id)}>Delete Review</button>
-                        <button onClick={() => {navigate(`/review/${review.id}/details`)}}>Review Details</button>
-                        <button onClick={() => {navigate(`/review/${review.id}/edit`)}}>Edit Review</button>
-                        </td>
-                    </tr>                        
-                </>
-                )}
-            </tbody>
-        </Table>
-        <button onClick={() => {navigate("/review/add")}}>Create Review</button>
-    </div>
+                        <th>Location Name</th>
+                        <th>Average Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {reviews.map(review => 
+                    <>
+                        <tr>
+                            <td>{review.locationName}</td>  
+                            <td>{review.averageScore}</td>                    
+                            <td>
+                            <button onClick={() => callDeleteReview(review.id)}>Delete Review</button>
+                            <button onClick={() => {navigate(`/review/${review.id}/details`)}}>Review Details</button>
+                            <button onClick={() => {navigate(`/review/${review.id}/edit`)}}>Edit Review</button>
+                            </td>
+                        </tr>                        
+                    </>
+                    )}
+                </tbody>
+              </Table>
+            <button onClick={() => {navigate("/review/add")}}>Create Review</button>
+          </section>
+        </section>
+      </section>
+    </main>
 )
 }

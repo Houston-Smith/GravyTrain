@@ -12,6 +12,9 @@ using System.ComponentModel.DataAnnotations;
             public string LocationName { get; set; }
 
             [Required]
+            public string LocationAddress { get; set; }
+
+        [Required]
             public DateTime DateReviewed { get; set; }
 
             [Required]
@@ -36,6 +39,9 @@ using System.ComponentModel.DataAnnotations;
             public string Notes { get; set; }
 
             [Required]
+            public string GravyType { get; set; }
+
+        [Required]
             public int UserProfileId { get; set; }
         }
     }

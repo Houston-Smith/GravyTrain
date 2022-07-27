@@ -18,7 +18,7 @@ namespace GravyTrain.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT Id, LocationName, ButteryScore, FlakeyScore, GravyScore, FlavorScore, DeliveryScore, AverageScore, Notes, UserProfileId
+                         SELECT Id, LocationName, LocationAddress, ButteryScore, FlakeyScore, GravyScore, FlavorScore, DeliveryScore, AverageScore, Notes, GravyType, UserProfileId
                          FROM Review
                          ";
                     var reader = cmd.ExecuteReader();
@@ -30,6 +30,7 @@ namespace GravyTrain.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             LocationName = DbUtils.GetString(reader, "LocationName"),
+                            LocationAddress = DbUtils.GetString(reader, "LocationAddress"),
                             ButteryScore = DbUtils.GetInt(reader, "ButteryScore"),
                             FlakeyScore = DbUtils.GetInt(reader, "FlakeyScore"),
                             GravyScore = DbUtils.GetInt(reader, "GravyScore"),
@@ -37,6 +38,7 @@ namespace GravyTrain.Repositories
                             DeliveryScore = DbUtils.GetInt(reader, "DeliveryScore"),
                             AverageScore = DbUtils.GetInt(reader, "AverageScore"),
                             Notes = DbUtils.GetString(reader, "Notes"),
+                            GravyType = DbUtils.GetString(reader, "GravyType"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
                         });
                     }
@@ -55,7 +57,7 @@ namespace GravyTrain.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, LocationName, ButteryScore, FlakeyScore, GravyScore, FlavorScore, DeliveryScore, AverageScore, Notes, UserProfileId
+                        SELECT Id, LocationName, LocationAddress, ButteryScore, FlakeyScore, GravyScore, FlavorScore, DeliveryScore, AverageScore, Notes, GravyType, UserProfileId
                         FROM Review
                         WHERE Id = @Id";
                     cmd.Parameters.AddWithValue("@Id", reviewId);
@@ -66,6 +68,7 @@ namespace GravyTrain.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             LocationName = DbUtils.GetString(reader, "LocationName"),
+                            LocationAddress = DbUtils.GetString(reader, "LocationAddress"),
                             ButteryScore = DbUtils.GetInt(reader, "ButteryScore"),
                             FlakeyScore = DbUtils.GetInt(reader, "FlakeyScore"),
                             GravyScore = DbUtils.GetInt(reader, "GravyScore"),
@@ -73,6 +76,7 @@ namespace GravyTrain.Repositories
                             DeliveryScore = DbUtils.GetInt(reader, "DeliveryScore"),
                             AverageScore = DbUtils.GetInt(reader, "AverageScore"),
                             Notes = DbUtils.GetString(reader, "Notes"),
+                            GravyType = DbUtils.GetString(reader, "GravyType"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
                         };
                         reader.Close();
@@ -86,6 +90,7 @@ namespace GravyTrain.Repositories
             }
         }
 
+
         public List<Review> GetReviewsByUserId(int userId)
         {
             using (var conn = Connection)
@@ -94,7 +99,7 @@ namespace GravyTrain.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT Id, LocationName, ButteryScore, FlakeyScore, GravyScore, FlavorScore, DeliveryScore, AverageScore, Notes, UserProfileId
+                         SELECT Id, LocationName, LocationAddress, ButteryScore, FlakeyScore, GravyScore, FlavorScore, DeliveryScore, AverageScore, Notes, GravyType, UserProfileId
                          FROM Review
                          WHERE UserProfileId = @UserProfileId
                     ";
@@ -109,6 +114,7 @@ namespace GravyTrain.Repositories
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
                             LocationName = DbUtils.GetString(reader, "LocationName"),
+                            LocationAddress = DbUtils.GetString(reader, "LocationAddress"),
                             ButteryScore = DbUtils.GetInt(reader, "ButteryScore"),
                             FlakeyScore = DbUtils.GetInt(reader, "FlakeyScore"),
                             GravyScore = DbUtils.GetInt(reader, "GravyScore"),
@@ -116,6 +122,7 @@ namespace GravyTrain.Repositories
                             DeliveryScore = DbUtils.GetInt(reader, "DeliveryScore"),
                             AverageScore = DbUtils.GetInt(reader, "AverageScore"),
                             Notes = DbUtils.GetString(reader, "Notes"),
+                            GravyType = DbUtils.GetString(reader, "GravyType"),
                             UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
                         });
                     }
@@ -133,13 +140,14 @@ namespace GravyTrain.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Review (LocationName, DateReviewed, ButteryScore, FlakeyScore, GravyScore, FlavorScore, 
-                                        DeliveryScore, AverageScore, Notes, UserProfileId)
+                    cmd.CommandText = @"INSERT INTO Review (LocationName, LocationAddress, DateReviewed, ButteryScore, FlakeyScore, GravyScore, FlavorScore, 
+                                        DeliveryScore, AverageScore, Notes, GravyType, UserProfileId)
                                         OUTPUT INSERTED.ID
-                                        VALUES (@LocationName, @DateReviewed, @ButteryScore, @FlakeyScore, @GravyScore, 
-                                                @FlavorScore, @DeliveryScore, @AverageScore, @Notes, @UserProfileId)";
+                                        VALUES (@LocationName, @LocationAddress, @DateReviewed, @ButteryScore, @FlakeyScore, @GravyScore, 
+                                                @FlavorScore, @DeliveryScore, @AverageScore, @Notes, @GravyType, @UserProfileId)";
 
                     DbUtils.AddParameter(cmd, "@LocationName", review.LocationName);
+                    DbUtils.AddParameter(cmd, "@LocationAddress", review.LocationAddress);
                     DbUtils.AddParameter(cmd, "@DateReviewed", review.DateReviewed);
                     DbUtils.AddParameter(cmd, "@ButteryScore", review.ButteryScore);
                     DbUtils.AddParameter(cmd, "@FlakeyScore", review.FlakeyScore);
@@ -148,6 +156,7 @@ namespace GravyTrain.Repositories
                     DbUtils.AddParameter(cmd, "@DeliveryScore", review.DeliveryScore);
                     DbUtils.AddParameter(cmd, "@AverageScore", review.AverageScore);
                     DbUtils.AddParameter(cmd, "@Notes", review.Notes);
+                    DbUtils.AddParameter(cmd, "@GravyType", review.GravyType);
                     DbUtils.AddParameter(cmd, "@UserProfileId", review.UserProfileId);
 
                     review.Id = (int)cmd.ExecuteScalar();
@@ -164,13 +173,13 @@ namespace GravyTrain.Repositories
                 {
                     cmd.CommandText = @"
                         UPDATE Review
-                            SET LocationName = @LocationName, ButteryScore = @ButteryScore, 
+                            SET LocationName = @LocationName, LocationAddress = @LocationAddress, ButteryScore = @ButteryScore, 
                                 FlakeyScore=@FlakeyScore, GravyScore = @GravyScore, FlavorScore = @FlavorScore, 
-                                DeliveryScore = @DeliveryScore, AverageScore = @AverageScore, Notes = @Notes
+                                DeliveryScore = @DeliveryScore, AverageScore = @AverageScore, Notes = @Notes, GravyType = @GravyType
                         WHERE Id = @Id";
 
-                    DbUtils.AddParameter(cmd, "@Id", review.Id);
                     DbUtils.AddParameter(cmd, "@LocationName", review.LocationName);
+                    DbUtils.AddParameter(cmd, "@LocationAddress", review.LocationAddress);
                     DbUtils.AddParameter(cmd, "@ButteryScore", review.ButteryScore);
                     DbUtils.AddParameter(cmd, "@FlakeyScore", review.FlakeyScore);
                     DbUtils.AddParameter(cmd, "@GravyScore", review.GravyScore);
@@ -178,6 +187,7 @@ namespace GravyTrain.Repositories
                     DbUtils.AddParameter(cmd, "@DeliveryScore", review.DeliveryScore);
                     DbUtils.AddParameter(cmd, "@AverageScore", review.AverageScore);
                     DbUtils.AddParameter(cmd, "@Notes", review.Notes);
+                    DbUtils.AddParameter(cmd, "@GravyType", review.GravyType);
 
                     cmd.ExecuteNonQuery();
                 }
