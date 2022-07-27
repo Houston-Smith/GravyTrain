@@ -2,21 +2,33 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { addReview } from "../../modules/reviewManager";
 import { getLoggedInUser } from "../../modules/userManager";
+import { getTags } from "../../modules/tagManager";
 
 
 export const ReviewForm = () => {
 
-  const [currentUser, setCurrentUser] = useState({})
-
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);  
+  const [currentUser, setCurrentUser] = useState({})
+  const [tags, setTags] = useState([{}])
+
+  useEffect(() => {
+    getTags()
+      .then(tags => {
+        setTags(tags);
+        setIsLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     getLoggedInUser()
       .then(User => {
         setCurrentUser(User);
-        console.log(User);
       });
   }, []);
+
+  console.log(tags)
 
   const [review, setReview] = useState({
     locationName: "",
@@ -58,6 +70,14 @@ export const ReviewForm = () => {
       review.notes = "No Notes"
     }
 
+    if (review.gravyType === "") {
+      review.gravyType = "---"
+    }
+
+    if (review.locationAddress === "") {
+      review.locationAddress = "n/a"
+    }
+
     if (reviewLocation === "") {
       window.alert("Please input a location for your review")
 
@@ -79,6 +99,11 @@ export const ReviewForm = () => {
         <fieldset>
 						<label htmlFor="locationName">Location Name:</label>
 						<input type="text" id="locationName" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationName} />
+				</fieldset>
+
+        <fieldset>
+						<label htmlFor="locationAddress">Location Address:</label>
+						<input type="text" id="locationAddress" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationAddress} />
 				</fieldset>
 
         <fieldset>
@@ -164,6 +189,28 @@ export const ReviewForm = () => {
               <option value={9}>9</option>
               <option value={10}>10</option>
             </select>
+				</fieldset>
+
+        <fieldset>
+						<label htmlFor="gravyType">Gravy Type:</label>
+						<select id="gravyType" onChange={handleControlledInputChange} value={review.gravyType}>
+              <option value={"---"}>---</option>
+              <option value={"White"}>White</option>
+              <option value={"Brown"}>Brown</option>
+              <option value={"Sausage"}>Sausage</option>
+            </select>  
+				</fieldset>
+
+        <fieldset>
+						<label htmlFor="tags">Tags:</label>
+						<div>
+              {tags.map(tag => (
+                <label htmlFor={tag.name}>
+                      <p>{tag.name}</p>
+                     <input type="checkbox" id={tag.name} name={tag.name} value={tag.name}></input>
+                </label>        
+              ))}
+            </div>  
 				</fieldset>
 
         <fieldset>
