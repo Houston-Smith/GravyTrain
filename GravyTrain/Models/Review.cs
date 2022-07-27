@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
     namespace GravyTrain.Models
@@ -41,7 +42,9 @@ using System.ComponentModel.DataAnnotations;
             [Required]
             public string GravyType { get; set; }
 
-        [Required]
+            [Required]
             public int UserProfileId { get; set; }
+
+            public List<Tag> Tags { get; set; }
         }
     }

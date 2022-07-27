@@ -2,6 +2,7 @@
 using GravyTrain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace GravyTrain.Controllers
 {
@@ -10,23 +11,40 @@ namespace GravyTrain.Controllers
     public class ReviewController : Controller
     {
         private readonly IReviewRepository _ReviewRepository;
+        private readonly ITagRepository _TagRepository;
 
-        public ReviewController(IReviewRepository reviewRepository)
+        public ReviewController(IReviewRepository reviewRepository, ITagRepository tagRepository)
         {
             _ReviewRepository = reviewRepository;
+            _TagRepository = tagRepository;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_ReviewRepository.GetAllReviews());
+            List<Review> reviews = _ReviewRepository.GetAllReviews();
+
+            foreach (Review review in reviews)
+            {
+                List<Tag> tags = _TagRepository.GetTagsByReviewId(review.Id);
+                review.Tags = tags;
+            }
+
+            if (reviews == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(reviews);
         }
 
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var review = _ReviewRepository.GetReviewById(id);
+            Review review = _ReviewRepository.GetReviewById(id);
+            review.Tags = _TagRepository.GetTagsByReviewId(review.Id);
+           
             if (review == null)
             {
                 return NotFound();
@@ -40,12 +58,21 @@ namespace GravyTrain.Controllers
         [HttpGet("User/{userId}")]
         public IActionResult GetByUserId(int userId)
         {
-            var review = _ReviewRepository.GetReviewsByUserId(userId);
-            if (review == null)
+
+            List<Review> reviews = _ReviewRepository.GetReviewsByUserId(userId);
+
+            foreach (Review review in reviews)
+            {
+                List<Tag> tags = _TagRepository.GetTagsByReviewId(review.Id);
+                review.Tags = tags;
+            }
+
+            if (reviews == null)
             {
                 return NotFound();
             }
-            return Ok(review);
+
+            return Ok(reviews);
         }
 
 

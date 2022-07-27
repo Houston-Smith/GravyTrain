@@ -36,6 +36,7 @@ export const ReviewList = () => {
                     <tr>
                         <th>Location Name</th>
                         <th>Average Score</th>
+                        <th>Tags</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,10 +45,14 @@ export const ReviewList = () => {
                         <tr>
                             <td>{review.locationName}</td>  
                             <td>{review.averageScore}</td>                    
+                            <td>{review.tags.map(tag =>
+                              <p>{tag.name}</p>
+                              )}
                             <td>
                             <button onClick={() => callDeleteReview(review.id)}>Delete Review</button>
                             <button onClick={() => {navigate(`/review/${review.id}/details`)}}>Review Details</button>
                             <button onClick={() => {navigate(`/review/${review.id}/edit`)}}>Edit Review</button>
+                            </td>
                             </td>
                         </tr>                        
                     </>
