@@ -1,5 +1,6 @@
 ﻿using GravyTrain.Models;
 using GravyTrain.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,6 @@ namespace GravyTrain.Controllers
         {
             List<Review> reviews = _ReviewRepository.GetAllReviews();
 
-            foreach (Review review in reviews)
-            {
-                List<Tag> tags = _TagRepository.GetTagsByReviewId(review.Id);
-                review.Tags = tags;
-            }
-
             if (reviews == null)
             {
                 return NotFound();
@@ -43,7 +38,6 @@ namespace GravyTrain.Controllers
         public IActionResult GetById(int id)
         {
             Review review = _ReviewRepository.GetReviewById(id);
-            review.Tags = _TagRepository.GetTagsByReviewId(review.Id);
            
             if (review == null)
             {

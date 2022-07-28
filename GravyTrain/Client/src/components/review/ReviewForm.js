@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { addReview } from "../../modules/reviewManager";
 import { getLoggedInUser } from "../../modules/userManager";
-import { getTags } from "../../modules/tagManager";
+import { getTags, addTagReviews } from "../../modules/tagManager";
 
 
 export const ReviewForm = () => {
@@ -27,8 +27,6 @@ export const ReviewForm = () => {
         setCurrentUser(User);
       });
   }, []);
-
-  console.log(tags)
 
   const [review, setReview] = useState({
     locationName: "",
@@ -56,15 +54,25 @@ export const ReviewForm = () => {
   const ClickAddReview = (event) => {
     event.preventDefault()
 
+    let checkedTags = []
     const reviewLocation = review.locationName
     const reviewNotes = review.notes
 
     let newReview = { ...review }
 
     const ScoreAverage = Math.round(((newReview.butteryScore * 1) + (newReview.flakeyScore * 1) + (newReview.flavorScore * 1) + (newReview.gravyScore * 1) + (newReview.deliveryScore * 1)) / 5)
-    console.log(ScoreAverage)
     newReview.averageScore = ScoreAverage
     newReview.userProfileId = currentUser.id  
+
+    tags.map(tag => {
+      if(document.querySelector(`#tag--` + tag.id).checked === true)
+      {
+        const newTagReview = {}
+        newTagReview.tagId = tag.id
+        newTagReview.reviewId = 1
+        checkedTags.push(newTagReview)
+      }
+    })
 
     if (reviewNotes === "") {
       review.notes = "No Notes"
@@ -82,9 +90,10 @@ export const ReviewForm = () => {
       window.alert("Please input a location for your review")
 
     } else {
-      console.log(newReview)
+
       addReview(newReview)
-        .then(() => navigate("/review"))
+        .then((response) => addTagReviews(response.id))
+          .then(() => navigate("/review"))
     }
   }
 
@@ -93,9 +102,23 @@ export const ReviewForm = () => {
 	}
 
   const CheckBoxes = (event) => {
+    let checkedTags = []
     tags.map(tag => {
-      console.log(document.querySelector(`#tag--` + tag.id).checked)
+      if(document.querySelector(`#tag--` + tag.id).checked === true)
+      {
+        const newTagReview = {}
+        newTagReview.tagId = tag.id
+        newTagReview.reviewId = 1
+        checkedTags.push(newTagReview)
+      }
     })
+
+    if (checkedTags === []) {
+      console.log("No Tags")
+    }
+    else {
+      addTagReviews(checkedTags)
+    }
 	}
 
   return (

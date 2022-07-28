@@ -2,7 +2,8 @@
 using GravyTrain.Models;
 using GravyTrain.Utils;
 using System.Collections.Generic;
-
+using Microsoft.Data.SqlClient;
+using System.Linq;
 
 namespace GravyTrain.Repositories
 {
@@ -18,33 +19,57 @@ namespace GravyTrain.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT Id, LocationName, LocationAddress, ButteryScore, FlakeyScore, GravyScore, FlavorScore, DeliveryScore, AverageScore, Notes, GravyType, UserProfileId
-                         FROM Review
+                        SELECT r.Id AS ReviewId, r.LocationName, r.LocationAddress, r.ButteryScore, r.FlakeyScore, 
+                        r.GravyScore, r.FlavorScore, r.DeliveryScore, r.AverageScore, r.Notes, r.GravyType, r.UserProfileId,
+
+                        tr.Id AS TagReviewId,
+
+                        t.Id AS TagId, t.Name
+
+                        FROM Review r
+                        LEFT JOIN TagReview tr ON r.Id = tr.ReviewId
+                        LEFT JOIN Tag t ON tr.TagId = t.Id
                          ";
-                    var reader = cmd.ExecuteReader();
-                    var reviews = new List<Review>();
 
-                    while (reader.Read())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        reviews.Add(new Review()
+                        var reviews = new List<Review>();
+                        while (reader.Read())
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
-                            LocationName = DbUtils.GetString(reader, "LocationName"),
-                            LocationAddress = DbUtils.GetString(reader, "LocationAddress"),
-                            ButteryScore = DbUtils.GetInt(reader, "ButteryScore"),
-                            FlakeyScore = DbUtils.GetInt(reader, "FlakeyScore"),
-                            GravyScore = DbUtils.GetInt(reader, "GravyScore"),
-                            FlavorScore = DbUtils.GetInt(reader, "FlavorScore"),
-                            DeliveryScore = DbUtils.GetInt(reader, "DeliveryScore"),
-                            AverageScore = DbUtils.GetInt(reader, "AverageScore"),
-                            Notes = DbUtils.GetString(reader, "Notes"),
-                            GravyType = DbUtils.GetString(reader, "GravyType"),
-                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
-                        });
-                    }
+                            var reviewId = DbUtils.GetInt(reader, "ReviewId");
 
-                    reader.Close();
-                    return reviews;
+                            var existingReview = reviews.FirstOrDefault(p => p.Id == reviewId);
+                            if (existingReview == null)
+                            {
+                                existingReview = new Review()
+                                {
+                                    Id = reviewId,
+                                    LocationName = DbUtils.GetString(reader, "LocationName"),
+                                    LocationAddress = DbUtils.GetString(reader, "LocationAddress"),
+                                    ButteryScore = DbUtils.GetInt(reader, "ButteryScore"),
+                                    FlakeyScore = DbUtils.GetInt(reader, "FlakeyScore"),
+                                    GravyScore = DbUtils.GetInt(reader, "GravyScore"),
+                                    FlavorScore = DbUtils.GetInt(reader, "FlavorScore"),
+                                    DeliveryScore = DbUtils.GetInt(reader, "DeliveryScore"),
+                                    AverageScore = DbUtils.GetInt(reader, "AverageScore"),
+                                    Notes = DbUtils.GetString(reader, "Notes"),
+                                    GravyType = DbUtils.GetString(reader, "GravyType"),
+                                    UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                                    Tags = new List<Tag>()
+                                };
+                            reviews.Add(existingReview);
+                            }
+                            if (DbUtils.IsNotDbNull(reader, "TagId"))
+                            {
+                                existingReview.Tags.Add(new Tag()
+                                {
+                                    Id = DbUtils.GetInt(reader, "TagId"),
+                                    Name = DbUtils.GetString(reader, "Name"),
+                                });
+                            }
+                        }
+                        return reviews;
+                    }                   
                 }
             }
         }
@@ -65,40 +90,49 @@ namespace GravyTrain.Repositories
                         LEFT JOIN Tag t ON tr.TagId = t.Id
                         WHERE r.Id = @Id
                         ";
+
                     cmd.Parameters.AddWithValue("@Id", reviewId);
-                    var reader = cmd.ExecuteReader();
-                    if (reader.Read())
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        Review review = new Review()
+                        Review review = null;
+                        if (reader.Read())
                         {
-                            Id = DbUtils.GetInt(reader, "ReviewId"),
-                            LocationName = DbUtils.GetString(reader, "LocationName"),
-                            LocationAddress = DbUtils.GetString(reader, "LocationAddress"),
-                            ButteryScore = DbUtils.GetInt(reader, "ButteryScore"),
-                            FlakeyScore = DbUtils.GetInt(reader, "FlakeyScore"),
-                            GravyScore = DbUtils.GetInt(reader, "GravyScore"),
-                            FlavorScore = DbUtils.GetInt(reader, "FlavorScore"),
-                            DeliveryScore = DbUtils.GetInt(reader, "DeliveryScore"),
-                            AverageScore = DbUtils.GetInt(reader, "AverageScore"),
-                            Notes = DbUtils.GetString(reader, "Notes"),
-                            GravyType = DbUtils.GetString(reader, "GravyType"),
-                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
-                        };
+                            review = new Review()
+                            {
+                                Id = DbUtils.GetInt(reader, "ReviewId"),
+                                LocationName = DbUtils.GetString(reader, "LocationName"),
+                                LocationAddress = DbUtils.GetString(reader, "LocationAddress"),
+                                ButteryScore = DbUtils.GetInt(reader, "ButteryScore"),
+                                FlakeyScore = DbUtils.GetInt(reader, "FlakeyScore"),
+                                GravyScore = DbUtils.GetInt(reader, "GravyScore"),
+                                FlavorScore = DbUtils.GetInt(reader, "FlavorScore"),
+                                DeliveryScore = DbUtils.GetInt(reader, "DeliveryScore"),
+                                AverageScore = DbUtils.GetInt(reader, "AverageScore"),
+                                Notes = DbUtils.GetString(reader, "Notes"),
+                                GravyType = DbUtils.GetString(reader, "GravyType"),
+                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                                Tags = new List<Tag>()
+                            };
 
-                        //if (DbUtils.IsNotDbNull (reader, "TagId"))
-                        //{
-                        //    review.Tags.Add(new Tag()
-                        //    {
-                        //        Id = DbUtils.GetInt(reader, "TagId"),
-                        //        Name = DbUtils.GetString (reader, "Name"),
-                        //    });
-                        //}
+                            while (reader.Read())
+                            {
+                                if (DbUtils.IsNotDbNull(reader, "TagId"))
+                                {
+                                    review.Tags.Add(new Tag()
+                                    {
+                                        Id = DbUtils.GetInt(reader, "TagId"),
+                                        Name = DbUtils.GetString(reader, "Name"),
+                                    });
+                                }
+                            }
 
-                        return review;
-                    }
-                    else
-                    {
-                        return null;
+                            return review;
+                        }
+
+                        else
+                        {
+                            return null;
+                        }
                     }
                 }
             }
@@ -113,36 +147,59 @@ namespace GravyTrain.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT Id, LocationName, LocationAddress, ButteryScore, FlakeyScore, GravyScore, FlavorScore, DeliveryScore, AverageScore, Notes, GravyType, UserProfileId
-                         FROM Review
-                         WHERE UserProfileId = @UserProfileId
+                         SELECT r.Id AS ReviewId, r.LocationName, r.LocationAddress, r.ButteryScore, r.FlakeyScore, 
+                        r.GravyScore, r.FlavorScore, r.DeliveryScore, r.AverageScore, r.Notes, r.GravyType, r.UserProfileId,
+
+                        tr.Id AS TagReviewId,
+
+                        t.Id AS TagId, t.Name
+
+                        FROM Review r
+                        LEFT JOIN TagReview tr ON r.Id = tr.ReviewId
+                        LEFT JOIN Tag t ON tr.TagId = t.Id
+                        WHERE UserProfileId = @UserProfileId
                     ";
 
-                    DbUtils.AddParameter(cmd, "@UserProfileId", userId);
-                    var reader = cmd.ExecuteReader();
-                    var reviews = new List<Review>();
-
-                    while (reader.Read())
+                    cmd.Parameters.AddWithValue("@UserProfileId", userId);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        reviews.Add(new Review()
+                        var reviews = new List<Review>();
+                        while (reader.Read())
                         {
-                            Id = DbUtils.GetInt(reader, "Id"),
-                            LocationName = DbUtils.GetString(reader, "LocationName"),
-                            LocationAddress = DbUtils.GetString(reader, "LocationAddress"),
-                            ButteryScore = DbUtils.GetInt(reader, "ButteryScore"),
-                            FlakeyScore = DbUtils.GetInt(reader, "FlakeyScore"),
-                            GravyScore = DbUtils.GetInt(reader, "GravyScore"),
-                            FlavorScore = DbUtils.GetInt(reader, "FlavorScore"),
-                            DeliveryScore = DbUtils.GetInt(reader, "DeliveryScore"),
-                            AverageScore = DbUtils.GetInt(reader, "AverageScore"),
-                            Notes = DbUtils.GetString(reader, "Notes"),
-                            GravyType = DbUtils.GetString(reader, "GravyType"),
-                            UserProfileId = DbUtils.GetInt(reader, "UserProfileId")
-                        });
-                    }
+                            var reviewId = DbUtils.GetInt(reader, "ReviewId");
 
-                    reader.Close();
-                    return reviews;
+                            var existingReview = reviews.FirstOrDefault(p => p.Id == reviewId);
+                            if (existingReview == null)
+                            {
+                                existingReview = new Review()
+                                {
+                                    Id = reviewId,
+                                    LocationName = DbUtils.GetString(reader, "LocationName"),
+                                    LocationAddress = DbUtils.GetString(reader, "LocationAddress"),
+                                    ButteryScore = DbUtils.GetInt(reader, "ButteryScore"),
+                                    FlakeyScore = DbUtils.GetInt(reader, "FlakeyScore"),
+                                    GravyScore = DbUtils.GetInt(reader, "GravyScore"),
+                                    FlavorScore = DbUtils.GetInt(reader, "FlavorScore"),
+                                    DeliveryScore = DbUtils.GetInt(reader, "DeliveryScore"),
+                                    AverageScore = DbUtils.GetInt(reader, "AverageScore"),
+                                    Notes = DbUtils.GetString(reader, "Notes"),
+                                    GravyType = DbUtils.GetString(reader, "GravyType"),
+                                    UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                                    Tags = new List<Tag>()
+                                };
+                                reviews.Add(existingReview);
+                            }
+                            if (DbUtils.IsNotDbNull(reader, "TagId"))
+                            {
+                                existingReview.Tags.Add(new Tag()
+                                {
+                                    Id = DbUtils.GetInt(reader, "TagId"),
+                                    Name = DbUtils.GetString(reader, "Name"),
+                                });
+                            }
+                        }
+                        return reviews;
+                    }
                 }
             }
         }

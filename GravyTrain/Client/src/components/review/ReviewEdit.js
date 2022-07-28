@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import { updateReview, getReviewById } from "../../modules/reviewManager";
+import { getTags, addTagReviews, deleteTagReviews} from "../../modules/tagManager";
 
 export const ReviewEdit = () => {
 
@@ -11,11 +12,20 @@ export const ReviewEdit = () => {
   const navigate = useNavigate();
 
   const [review, setReview] = useState({ locationName: "" });
+  const [tags, setTags] = useState([{}])
 
   useEffect(() => {
     getReviewById(reviewId)
       .then(review => {
         setReview(review);
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    getTags()
+      .then(tags => {
+        setTags(tags);
         setIsLoading(false);
       });
   }, []);
@@ -30,6 +40,8 @@ export const ReviewEdit = () => {
     evt.preventDefault()
     setIsLoading(true);
 
+    deleteTagReviews(reviewId)
+    let checkedTags = []
 
     const editedReview = {
       id: reviewId,
@@ -45,6 +57,16 @@ export const ReviewEdit = () => {
       notes: review.notes,
       userProfileId: review.userProfileId
     };
+
+    tags.map(tag => {
+      if(document.querySelector(`#tag--` + tag.id).checked === true)
+      {
+        const newTagReview = {}
+        newTagReview.tagId = tag.id
+        newTagReview.reviewId = reviewId
+        checkedTags.push(newTagReview)
+      }
+    })
 
     const reviewLocation = editedReview.locationName
 
@@ -68,9 +90,8 @@ export const ReviewEdit = () => {
       window.alert("Please input a location for your review")
 
     } else {
-      console.log(editedReview)
       updateReview(editedReview)
-        .then(() => navigate("/review"))
+          .then(() => navigate("/review"))
     }
   }
 
@@ -85,6 +106,11 @@ export const ReviewEdit = () => {
       <fieldset>
           <label htmlFor="locationName">Location Name:</label>
           <input type="text" id="locationName" onChange={handleFieldChange} required autoFocus value={review.locationName} />
+      </fieldset>
+
+      <fieldset>
+          <label htmlFor="locationName">Location Address:</label>
+          <input type="text" id="locationName" onChange={handleFieldChange} required autoFocus value={review.locationAddress} />
       </fieldset>
 
       <fieldset>
@@ -170,6 +196,28 @@ export const ReviewEdit = () => {
               <option value={9}>9</option>
               <option value={10}>10</option>
             </select>
+				</fieldset>
+
+        <fieldset>
+						<label htmlFor="gravyType">Gravy Type:</label>
+						<select id="gravyType" onChange={handleFieldChange} value={review.gravyType}>
+              <option value={"---"}>---</option>
+              <option value={"White"}>White</option>
+              <option value={"Brown"}>Brown</option>
+              <option value={"Sausage"}>Sausage</option>
+            </select>  
+				</fieldset>
+
+        <fieldset>
+						<label htmlFor="tags">Tags:</label>
+						<div id="root">
+              {tags.map(tag => (
+                <label htmlFor={tag.name}>
+                      <p>{tag.name}</p>
+                     <input type="checkbox" id={"tag--" + tag.id} name={tag.name} value={tag.id} ></input>
+                </label>        
+              ))}
+            </div>  
 				</fieldset>
 
         <fieldset>

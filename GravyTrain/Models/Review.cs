@@ -15,7 +15,7 @@ using System.ComponentModel.DataAnnotations;
             [Required]
             public string LocationAddress { get; set; }
 
-        [Required]
+            [Required]
             public DateTime DateReviewed { get; set; }
 
             [Required]
