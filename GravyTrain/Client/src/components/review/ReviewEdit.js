@@ -1,8 +1,6 @@
-import { editableInputTypes } from "@testing-library/user-event/dist/utils";
 import React, { useState, useEffect } from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import { updateReview, getReviewById } from "../../modules/reviewManager";
-import { getLoggedInUser } from "../../modules/userManager";
 
 export const ReviewEdit = () => {
 
@@ -36,25 +34,34 @@ export const ReviewEdit = () => {
     const editedReview = {
       id: reviewId,
       locationName: review.locationName,
+      locationAddress: review.locationAddress,
       dateReviewed: review.dateReviewed,
       butteryScore: review.butteryScore,
       flakeyScore: review.flakeyScore,
       gravyScore: review.gravyScore,
       flavorScore: review.flavorScore,
       deliveryScore: review.deliveryScore,
+      gravyScore: review.gravyType,
       notes: review.notes,
       userProfileId: review.userProfileId
     };
 
     const reviewLocation = editedReview.locationName
-    const reviewNotes = editedReview.notes
 
-    const ScoreAverage = Math.round((editedReview.butteryScore + editedReview.flakeyScore + editedReview.flavorScore + editedReview.gravyScore + editedReview.deliveryScore) / 5)
-    console.log(ScoreAverage)
+    const ScoreAverage = Math.round(((editedReview.butteryScore * 1) + (editedReview.flakeyScore * 1) + (editedReview.flavorScore * 1) + (editedReview.gravyScore * 1) + (editedReview.deliveryScore * 1)) / 5)
+
     editedReview.averageScore = ScoreAverage
     
-    if (reviewNotes === "") {
+    if (editedReview.notes === "") {
       editedReview.notes = "No Notes"
+    }
+
+    if (editedReview.gravyType === "") {
+      editedReview.gravyType = "---"
+    }
+
+    if (editedReview.locationAddress === "") {
+      editedReview.locationAddress = "n/a"
     }
 
     if (reviewLocation === "") {
