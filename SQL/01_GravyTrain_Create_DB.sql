@@ -45,7 +45,7 @@ GO
 CREATE TABLE [TagReview] (
   [Id] int PRIMARY KEY IDENTITY,
   [ReviewId] int NOT NULL,
-  [TagId] int NOT NULL
+  [TagId] int NOT NULLR
 )
 GO
 

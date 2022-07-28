@@ -69,6 +69,45 @@ namespace GravyTrain.Repositories
                 }
             }
         }
+
+        public void AddTagReviews(List<TagReview> tagReviews)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                
+                foreach (TagReview tagReview in tagReviews)
+                    {
+                        {
+                            cmd.CommandText = @"INSERT INTO TagReview (ReviewId, TagId)
+                                                OUTPUT INSERTED.ID
+                                                VALUES (@ReviewId, @TagId)
+                                                ";
+
+                            DbUtils.AddParameter(cmd, "@ReviewId", tagReview.ReviewId);
+                            DbUtils.AddParameter(cmd, "@TagId", tagReview.TagId);
+
+                            tagReview.Id = (int)cmd.ExecuteScalar();
+                        }
+                    }
+            }
+        }
+
+        public void DeleteTagReviewsByReviewId(int reviewId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM TagReview WHERE ReviewId = @ReviewId";
+                    DbUtils.AddParameter(cmd, "@reviewId", reviewId);
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
     }
     
 }

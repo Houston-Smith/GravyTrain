@@ -44,5 +44,19 @@ namespace GravyTrain.Controllers
 
             return Ok(tags);
         }
+
+        [HttpPost("TagReviews")]
+        public IActionResult Post(List<TagReview> tagReviews)
+        {            
+            _TagRepository.AddTagReviews(tagReviews);
+            return NoContent();
+        }
+
+        [HttpDelete("TagReview/{reviewId}")]
+        public IActionResult Delete(int reviewId)
+        {
+            _TagRepository.DeleteTagReviewsByReviewId(reviewId);
+            return NoContent();
+        }
     }
 }

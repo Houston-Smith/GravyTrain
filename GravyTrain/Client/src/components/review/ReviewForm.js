@@ -92,6 +92,12 @@ export const ReviewForm = () => {
 		navigate("/review")
 	}
 
+  const CheckBoxes = (event) => {
+    tags.map(tag => {
+      console.log(document.querySelector(`#tag--` + tag.id).checked)
+    })
+	}
+
   return (
     <main>
       <h1>New Review</h1>
@@ -203,11 +209,11 @@ export const ReviewForm = () => {
 
         <fieldset>
 						<label htmlFor="tags">Tags:</label>
-						<div>
+						<div id="root">
               {tags.map(tag => (
                 <label htmlFor={tag.name}>
                       <p>{tag.name}</p>
-                     <input type="checkbox" id={tag.name} name={tag.name} value={tag.name}></input>
+                     <input type="checkbox" id={"tag--" + tag.id} name={tag.name} value={tag.id} ></input>
                 </label>        
               ))}
             </div>  
@@ -226,6 +232,10 @@ export const ReviewForm = () => {
 					<button
 						onClick={ClickCancel}>
 						Cancel
+					</button>
+          <button
+						onClick={CheckBoxes}>
+						Check Boxes
 					</button>
 				</div>
     </main>

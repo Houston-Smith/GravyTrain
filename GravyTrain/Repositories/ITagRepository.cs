@@ -9,6 +9,7 @@ namespace GravyTrain.Repositories
     {
         List<Tag> GetAllTags();
         List<Tag> GetTagsByReviewId(int reviewId);
-
+        void AddTagReviews(List<TagReview> tagReviews);
+        void DeleteTagReviewsByReviewId(int reviewId);
     }
 }
