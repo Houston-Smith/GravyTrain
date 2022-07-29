@@ -1,8 +1,7 @@
-import { editableInputTypes } from "@testing-library/user-event/dist/utils";
 import React, { useState, useEffect } from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import { updateReview, getReviewById } from "../../modules/reviewManager";
-import { getLoggedInUser } from "../../modules/userManager";
+import { getTags, addTagReviews, deleteTagReviews} from "../../modules/tagManager";
 
 export const ReviewEdit = () => {
 
@@ -12,12 +11,33 @@ export const ReviewEdit = () => {
 
   const navigate = useNavigate();
 
-  const [review, setReview] = useState({ locationName: "" });
+  const [review, setReview] = useState({ 
+  locationName: "",
+  locationAddress: "",
+  createDateTime: "",
+  butteryScore:0,
+  flakeyScore:0,
+  gravyScore:0,
+  flavorScore:0,
+  deliveryScore:0,
+  averageScore:0,
+  gravyType: "",
+  notes: "", });
+
+  const [tags, setTags] = useState([{}])
 
   useEffect(() => {
     getReviewById(reviewId)
       .then(review => {
         setReview(review);
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    getTags()
+      .then(tags => {
+        setTags(tags);
         setIsLoading(false);
       });
   }, []);
@@ -32,6 +52,8 @@ export const ReviewEdit = () => {
     evt.preventDefault()
     setIsLoading(true);
 
+    deleteTagReviews(reviewId)
+    let checkedTags = []
 
     const editedReview = {
       id: reviewId,
@@ -48,14 +70,22 @@ export const ReviewEdit = () => {
       userProfileId: review.userProfileId
     };
 
-    const reviewLocation = editedReview.locationName
-    const reviewNotes = editedReview.notes
+    tags.map(tag => {
+      if(document.querySelector(`#tag--` + tag.id).checked === true)
+      {
+        const newTagReview = {}
+        newTagReview.tagId = tag.id
+        newTagReview.reviewId = reviewId
+        checkedTags.push(newTagReview)
+      }
+    })
 
-    const ScoreAverage = Math.round((editedReview.butteryScore + editedReview.flakeyScore + editedReview.flavorScore + editedReview.gravyScore + editedReview.deliveryScore) / 5)
-    console.log(ScoreAverage)
+    const reviewLocation = editedReview.locationName
+
+    let ScoreAverage = Math.round(((editedReview.butteryScore * 1) + (editedReview.flakeyScore * 1) + (editedReview.flavorScore * 1) + (editedReview.gravyScore * 1) + (editedReview.deliveryScore * 1)) / 5)
     editedReview.averageScore = ScoreAverage
     
-    if (reviewNotes === "") {
+    if (editedReview.notes === "") {
       editedReview.notes = "No Notes"
     }
 
@@ -69,11 +99,12 @@ export const ReviewEdit = () => {
 
     if (reviewLocation === "") {
       window.alert("Please input a location for your review")
-
+      setIsLoading(false);
     } else {
       console.log(editedReview)
       updateReview(editedReview)
-        .then(() => navigate("/review"))
+      .then(() => addTagReviews(checkedTags))
+       .then(() => navigate("/review"))
     }
   }
 
@@ -87,7 +118,12 @@ export const ReviewEdit = () => {
       
       <fieldset>
           <label htmlFor="locationName">Location Name:</label>
-          <input type="text" id="locationName" onChange={handleFieldChange} required autoFocus value={review.locationName} />
+          <input type="text" id="locationName" onChange={handleFieldChange} value={review.locationName} />
+      </fieldset>
+
+      <fieldset>
+          <label htmlFor="locationAddress">Location Address:</label>
+          <input type="text" id="locationAddress" onChange={handleFieldChange} value={review.locationAddress} />
       </fieldset>
 
       <fieldset>
@@ -183,16 +219,28 @@ export const ReviewEdit = () => {
         <fieldset>
 						<label htmlFor="gravyType">Gravy Type:</label>
 						<select id="gravyType" onChange={handleFieldChange} value={review.gravyType}>
-              <option value={""}>---</option>
+              <option value={"---"}>---</option>
               <option value={"White"}>White</option>
               <option value={"Brown"}>Brown</option>
               <option value={"Sausage"}>Sausage</option>
-            </select>
+            </select>  
+				</fieldset>
+
+        <fieldset>
+						<label htmlFor="tags">Tags:</label>
+						<div id="root">
+              {tags.map(tag => (
+                <label htmlFor={tag.name}>
+                      <p>{tag.name}</p>
+                     <input type="checkbox" id={"tag--" + tag.id} name={tag.name} value={tag.id} ></input>
+                </label>        
+              ))}
+            </div>  
 				</fieldset>
 
         <fieldset>
           <label htmlFor="notes">Additional Notes:</label>
-          <input type="text" id="notes" onChange={handleFieldChange} required autoFocus value={review.notes} />
+          <input type="text" id="notes" onChange={handleFieldChange} value={review.notes} />
       </fieldset>
 
       <button disabled={isLoading}

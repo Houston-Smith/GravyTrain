@@ -2,6 +2,8 @@
 using GravyTrain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace GravyTrain.Controllers
 {
@@ -10,23 +12,35 @@ namespace GravyTrain.Controllers
     public class ReviewController : Controller
     {
         private readonly IReviewRepository _ReviewRepository;
+        private readonly ITagRepository _TagRepository;
+        private readonly IUserProfileRepository _UserProfileRepository;
 
-        public ReviewController(IReviewRepository reviewRepository)
+        public ReviewController(IReviewRepository reviewRepository, ITagRepository tagRepository, IUserProfileRepository userProfileRepository)
         {
             _ReviewRepository = reviewRepository;
+            _TagRepository = tagRepository;
+            _UserProfileRepository = userProfileRepository;
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_ReviewRepository.GetAllReviews());
+            List<Review> reviews = _ReviewRepository.GetAllReviews();
+
+            if (reviews == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(reviews);
         }
 
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var review = _ReviewRepository.GetReviewById(id);
+            Review review = _ReviewRepository.GetReviewById(id);
+           
             if (review == null)
             {
                 return NotFound();
@@ -40,12 +54,21 @@ namespace GravyTrain.Controllers
         [HttpGet("User/{userId}")]
         public IActionResult GetByUserId(int userId)
         {
-            var review = _ReviewRepository.GetReviewsByUserId(userId);
-            if (review == null)
+
+            List<Review> reviews = _ReviewRepository.GetReviewsByUserId(userId);
+
+            foreach (Review review in reviews)
+            {
+                List<Tag> tags = _TagRepository.GetTagsByReviewId(review.Id);
+                review.Tags = tags;
+            }
+
+            if (reviews == null)
             {
                 return NotFound();
             }
-            return Ok(review);
+
+            return Ok(reviews);
         }
 
 
@@ -76,6 +99,13 @@ namespace GravyTrain.Controllers
         {
             _ReviewRepository.Delete(id);
             return NoContent();
+        }
+
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _UserProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
     }
 }

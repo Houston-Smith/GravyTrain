@@ -59,6 +59,7 @@ ALTER TABLE [Review] ADD FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] 
 GO
 
 ALTER TABLE [TagReview] ADD FOREIGN KEY ([ReviewId]) REFERENCES [Review] ([Id])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [TagReview] ADD FOREIGN KEY ([TagId]) REFERENCES [Tag] ([Id])

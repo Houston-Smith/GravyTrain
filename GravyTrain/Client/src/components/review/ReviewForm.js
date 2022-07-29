@@ -2,19 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { addReview } from "../../modules/reviewManager";
 import { getLoggedInUser } from "../../modules/userManager";
+import { getTags, addTagReviews } from "../../modules/tagManager";
 
 
 export const ReviewForm = () => {
 
-  const [currentUser, setCurrentUser] = useState({})
-
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);  
+  const [currentUser, setCurrentUser] = useState({})
+  const [tags, setTags] = useState([{}])
+
+  useEffect(() => {
+    getTags()
+      .then(tags => {
+        setTags(tags);
+        setIsLoading(false);
+      });
+  }, []);
 
   useEffect(() => {
     getLoggedInUser()
       .then(User => {
         setCurrentUser(User);
-        console.log(User);
       });
   }, []);
 
@@ -28,6 +38,7 @@ export const ReviewForm = () => {
     flavorScore:0,
     deliveryScore:0,
     averageScore:0,
+    gravyType: "",
     notes: "",
     gravyType: "",
   })
@@ -46,40 +57,71 @@ export const ReviewForm = () => {
   const ClickAddReview = (event) => {
     event.preventDefault()
 
-    const reviewLocation = review.locationName
-    const reviewNotes = review.notes
+    let checkedTags = []
 
     let newReview = { ...review }
 
     const ScoreAverage = Math.round(((newReview.butteryScore * 1) + (newReview.flakeyScore * 1) + (newReview.flavorScore * 1) + (newReview.gravyScore * 1) + (newReview.deliveryScore * 1)) / 5)
-    console.log(ScoreAverage)
     newReview.averageScore = ScoreAverage
     newReview.userProfileId = currentUser.id  
 
-    if (reviewNotes === "") {
-      newReview.notes = "No Notes"
-    }
+    tags.map(tag => {
+      if(document.querySelector(`#tag--` + tag.id).checked === true)
+      {
+        const newTagReview = {}
+        newTagReview.tagId = tag.id
+        checkedTags.push(newTagReview)
+      }
+    })
 
-    if (newReview.locationAddress === "") {
-      newReview.locationAddress = "N/A"
+    if (newReview.notes === "") {
+      newReview.notes = "No Notes"
     }
 
     if (newReview.gravyType === "") {
       newReview.gravyType = "---"
     }
 
-    if (reviewLocation === "") {
+    if (newReview.locationAddress === "") {
+      newReview.locationAddress = "n/a"
+    }
+
+    if (newReview.locationName === "") {
       window.alert("Please input a location for your review")
 
     } else {
-      console.log(newReview)
+
       addReview(newReview)
-        .then(() => navigate("/review"))
+        .then((response) => 
+        checkedTags.map(tag => {tag.reviewId = response.id}),
+        console.log(checkedTags),)
+          .then(() => addTagReviews(checkedTags))
+            .then(() => navigate("/review"))
     }
   }
 
 	const ClickCancel = (event) => {
 		navigate("/review")
+	}
+
+  const CheckBoxes = (event) => {
+    let checkedTags = []
+    tags.map(tag => {
+      if(document.querySelector(`#tag--` + tag.id).checked === true)
+      {
+        const newTagReview = {}
+        newTagReview.tagId = tag.id
+        newTagReview.reviewId = 1
+        checkedTags.push(newTagReview)
+      }
+    })
+
+    if (checkedTags === []) {
+      console.log("No Tags")
+    }
+    else {
+      addTagReviews(checkedTags)
+    }
 	}
 
   return (
@@ -184,11 +226,23 @@ export const ReviewForm = () => {
         <fieldset>
 						<label htmlFor="gravyType">Gravy Type:</label>
 						<select id="gravyType" onChange={handleControlledInputChange} value={review.gravyType}>
-              <option value={""}>---</option>
+              <option value={"---"}>---</option>
               <option value={"White"}>White</option>
               <option value={"Brown"}>Brown</option>
               <option value={"Sausage"}>Sausage</option>
-            </select>
+            </select>  
+				</fieldset>
+
+        <fieldset>
+						<label htmlFor="tags">Tags:</label>
+						<div id="root">
+              {tags.map(tag => (
+                <label htmlFor={tag.name}>
+                      <p>{tag.name}</p>
+                     <input type="checkbox" id={"tag--" + tag.id} name={tag.name} value={tag.id} ></input>
+                </label>        
+              ))}
+            </div>  
 				</fieldset>
 
         <fieldset>
@@ -204,6 +258,10 @@ export const ReviewForm = () => {
 					<button
 						onClick={ClickCancel}>
 						Cancel
+					</button>
+          <button
+						onClick={CheckBoxes}>
+						Check Boxes
 					</button>
 				</div>
     </main>
