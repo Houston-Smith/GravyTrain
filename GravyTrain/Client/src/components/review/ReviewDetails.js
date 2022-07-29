@@ -27,8 +27,8 @@ export const ReviewDetails = () =>{
 
   return (
       <Card>
-      <h2>{review.locationName}</h2>
-      <h3>{review.locationAddress}</h3>
+      <h3>{review.locationName}</h3>
+      <h5>{review.locationAddress}</h5>
       <CardBody>
           <p>Butteriness: {review.butteryScore}</p>
           <p>Flakiness: {review.flakeyScore}</p>

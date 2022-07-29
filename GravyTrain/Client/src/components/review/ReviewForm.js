@@ -40,6 +40,7 @@ export const ReviewForm = () => {
     averageScore:0,
     gravyType: "",
     notes: "",
+    gravyType: "",
   })
 
   const handleControlledInputChange = (event) => {
