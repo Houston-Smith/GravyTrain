@@ -76,21 +76,30 @@ namespace GravyTrain.Repositories
             {
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
-                
+                {
+                cmd.CommandText = @"INSERT INTO TagReview (ReviewId, TagId)
+                                    OUTPUT INSERTED.ID
+                                    VALUES (@ReviewId, @TagId)
+                                    ";
+
+                            
+                            cmd.Parameters.Add("@ReviewId", System.Data.SqlDbType.Int);
+                            cmd.Parameters.Add("@TagId", System.Data.SqlDbType.Int);
+
                 foreach (TagReview tagReview in tagReviews)
                     {
                         {
-                            cmd.CommandText = @"INSERT INTO TagReview (ReviewId, TagId)
-                                                OUTPUT INSERTED.ID
-                                                VALUES (@ReviewId, @TagId)
-                                                ";
-
-                            DbUtils.AddParameter(cmd, "@ReviewId", tagReview.ReviewId);
-                            DbUtils.AddParameter(cmd, "@TagId", tagReview.TagId);
+                            cmd.Parameters["@ReviewId"].Value=tagReview.ReviewId;
+                            cmd.Parameters["@TagId"].Value=tagReview.TagId;
 
                             tagReview.Id = (int)cmd.ExecuteScalar();
                         }
                     }
+                }
+                
+
+                            
+
             }
         }
 

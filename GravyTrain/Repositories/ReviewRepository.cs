@@ -114,7 +114,7 @@ namespace GravyTrain.Repositories
                                 Tags = new List<Tag>()
                             };
 
-                            while (reader.Read())
+                            do 
                             {
                                 if (DbUtils.IsNotDbNull(reader, "TagId"))
                                 {
@@ -124,7 +124,7 @@ namespace GravyTrain.Repositories
                                         Name = DbUtils.GetString(reader, "Name"),
                                     });
                                 }
-                            }
+                            } while (reader.Read());    
 
                             return review;
                         }

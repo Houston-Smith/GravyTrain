@@ -30,6 +30,7 @@ export const ReviewForm = () => {
 
   const [review, setReview] = useState({
     locationName: "",
+    locationAddress: "",
     createDateTime: "",
     butteryScore:0,
     flakeyScore:0,
@@ -37,6 +38,7 @@ export const ReviewForm = () => {
     flavorScore:0,
     deliveryScore:0,
     averageScore:0,
+    gravyType: "",
     notes: "",
   })
 
@@ -55,8 +57,6 @@ export const ReviewForm = () => {
     event.preventDefault()
 
     let checkedTags = []
-    const reviewLocation = review.locationName
-    const reviewNotes = review.notes
 
     let newReview = { ...review }
 
@@ -69,31 +69,33 @@ export const ReviewForm = () => {
       {
         const newTagReview = {}
         newTagReview.tagId = tag.id
-        newTagReview.reviewId = 1
         checkedTags.push(newTagReview)
       }
     })
 
-    if (reviewNotes === "") {
-      review.notes = "No Notes"
+    if (newReview.notes === "") {
+      newReview.notes = "No Notes"
     }
 
-    if (review.gravyType === "") {
-      review.gravyType = "---"
+    if (newReview.gravyType === "") {
+      newReview.gravyType = "---"
     }
 
-    if (review.locationAddress === "") {
-      review.locationAddress = "n/a"
+    if (newReview.locationAddress === "") {
+      newReview.locationAddress = "n/a"
     }
 
-    if (reviewLocation === "") {
+    if (newReview.locationName === "") {
       window.alert("Please input a location for your review")
 
     } else {
 
       addReview(newReview)
-        .then((response) => addTagReviews(response.id))
-          .then(() => navigate("/review"))
+        .then((response) => 
+        checkedTags.map(tag => {tag.reviewId = response.id}),
+        console.log(checkedTags),)
+          .then(() => addTagReviews(checkedTags))
+            .then(() => navigate("/review"))
     }
   }
 
