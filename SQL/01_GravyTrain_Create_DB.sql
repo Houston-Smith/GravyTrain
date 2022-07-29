@@ -45,7 +45,7 @@ GO
 CREATE TABLE [TagReview] (
   [Id] int PRIMARY KEY IDENTITY,
   [ReviewId] int NOT NULL,
-  [TagId] int NOT NULLR
+  [TagId] int NOT NULL
 )
 GO
 
@@ -58,12 +58,8 @@ GO
 ALTER TABLE [Review] ADD FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
 GO
 
-ALTER TABLE [TagReview]  WITH CHECK ADD  CONSTRAINT [FK_TagReview_Review] FOREIGN KEY([ReviewId])
-REFERENCES  [Review] ([ReviewId])
-ON DELETE CASCADE
-GO
-
 ALTER TABLE [TagReview] ADD FOREIGN KEY ([ReviewId]) REFERENCES [Review] ([Id])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [TagReview] ADD FOREIGN KEY ([TagId]) REFERENCES [Tag] ([Id])

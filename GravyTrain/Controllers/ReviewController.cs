@@ -1,6 +1,5 @@
 ﻿using GravyTrain.Models;
 using GravyTrain.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -53,12 +52,10 @@ namespace GravyTrain.Controllers
 
 
         [HttpGet("User/{userId}")]
-        public IActionResult GetByUserId()
+        public IActionResult GetByUserId(int userId)
         {
 
-            UserProfile user = GetCurrentUserProfile();
-
-            List<Review> reviews = _ReviewRepository.GetReviewsByUserId(user.Id);
+            List<Review> reviews = _ReviewRepository.GetReviewsByUserId(userId);
 
             foreach (Review review in reviews)
             {
@@ -110,6 +107,5 @@ namespace GravyTrain.Controllers
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _UserProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
-
     }
 }
