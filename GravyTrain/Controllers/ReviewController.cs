@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace GravyTrain.Controllers
 {
@@ -13,11 +14,13 @@ namespace GravyTrain.Controllers
     {
         private readonly IReviewRepository _ReviewRepository;
         private readonly ITagRepository _TagRepository;
+        private readonly IUserProfileRepository _UserProfileRepository;
 
-        public ReviewController(IReviewRepository reviewRepository, ITagRepository tagRepository)
+        public ReviewController(IReviewRepository reviewRepository, ITagRepository tagRepository, IUserProfileRepository userProfileRepository)
         {
             _ReviewRepository = reviewRepository;
             _TagRepository = tagRepository;
+            _UserProfileRepository = userProfileRepository;
         }
 
         [HttpGet]
@@ -50,10 +53,12 @@ namespace GravyTrain.Controllers
 
 
         [HttpGet("User/{userId}")]
-        public IActionResult GetByUserId(int userId)
+        public IActionResult GetByUserId()
         {
 
-            List<Review> reviews = _ReviewRepository.GetReviewsByUserId(userId);
+            UserProfile user = GetCurrentUserProfile();
+
+            List<Review> reviews = _ReviewRepository.GetReviewsByUserId(user.Id);
 
             foreach (Review review in reviews)
             {
@@ -97,6 +102,13 @@ namespace GravyTrain.Controllers
         {
             _ReviewRepository.Delete(id);
             return NoContent();
+        }
+
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _UserProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
 
     }

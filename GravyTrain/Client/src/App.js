@@ -4,8 +4,6 @@ import { Spinner } from 'reactstrap';
 import Header from './components/Header';
 import ApplicationViews from "./components/ApplicationViews";
 import { onLoginStatusChange } from "./modules/authManager";
-import { getLoggedInUser } from './modules/userManager';
-import firebase from 'firebase';
 import './App.css';
 
 function App() {

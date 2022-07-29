@@ -11,7 +11,19 @@ export const ReviewEdit = () => {
 
   const navigate = useNavigate();
 
-  const [review, setReview] = useState({ locationName: "" });
+  const [review, setReview] = useState({ 
+  locationName: "",
+  locationAddress: "",
+  createDateTime: "",
+  butteryScore:0,
+  flakeyScore:0,
+  gravyScore:0,
+  flavorScore:0,
+  deliveryScore:0,
+  averageScore:0,
+  gravyType: "",
+  notes: "", });
+
   const [tags, setTags] = useState([{}])
 
   useEffect(() => {
@@ -53,7 +65,7 @@ export const ReviewEdit = () => {
       gravyScore: review.gravyScore,
       flavorScore: review.flavorScore,
       deliveryScore: review.deliveryScore,
-      gravyScore: review.gravyType,
+      gravyType: review.gravyType,
       notes: review.notes,
       userProfileId: review.userProfileId
     };
@@ -70,8 +82,7 @@ export const ReviewEdit = () => {
 
     const reviewLocation = editedReview.locationName
 
-    const ScoreAverage = Math.round(((editedReview.butteryScore * 1) + (editedReview.flakeyScore * 1) + (editedReview.flavorScore * 1) + (editedReview.gravyScore * 1) + (editedReview.deliveryScore * 1)) / 5)
-
+    let ScoreAverage = Math.round(((editedReview.butteryScore * 1) + (editedReview.flakeyScore * 1) + (editedReview.flavorScore * 1) + (editedReview.gravyScore * 1) + (editedReview.deliveryScore * 1)) / 5)
     editedReview.averageScore = ScoreAverage
     
     if (editedReview.notes === "") {
@@ -88,10 +99,12 @@ export const ReviewEdit = () => {
 
     if (reviewLocation === "") {
       window.alert("Please input a location for your review")
-
+      setIsLoading(false);
     } else {
+      console.log(editedReview)
       updateReview(editedReview)
-          .then(() => navigate("/review"))
+      .then(() => addTagReviews(checkedTags))
+       .then(() => navigate("/review"))
     }
   }
 
@@ -105,12 +118,12 @@ export const ReviewEdit = () => {
       
       <fieldset>
           <label htmlFor="locationName">Location Name:</label>
-          <input type="text" id="locationName" onChange={handleFieldChange} required autoFocus value={review.locationName} />
+          <input type="text" id="locationName" onChange={handleFieldChange} value={review.locationName} />
       </fieldset>
 
       <fieldset>
-          <label htmlFor="locationName">Location Address:</label>
-          <input type="text" id="locationName" onChange={handleFieldChange} required autoFocus value={review.locationAddress} />
+          <label htmlFor="locationAddress">Location Address:</label>
+          <input type="text" id="locationAddress" onChange={handleFieldChange} value={review.locationAddress} />
       </fieldset>
 
       <fieldset>
@@ -222,7 +235,7 @@ export const ReviewEdit = () => {
 
         <fieldset>
           <label htmlFor="notes">Additional Notes:</label>
-          <input type="text" id="notes" onChange={handleFieldChange} required autoFocus value={review.notes} />
+          <input type="text" id="notes" onChange={handleFieldChange} value={review.notes} />
       </fieldset>
 
       <button disabled={isLoading}

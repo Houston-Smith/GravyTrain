@@ -3,12 +3,14 @@ import { Navigate, useNavigate } from "react-router-dom"
 import { getReviewById } from "../../modules/reviewManager"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
+import { getTagByReviewId } from "../../modules/tagManager"
 
 export const ReviewDetails = () =>{
 
   const navigate = useNavigate()
 
   const [review, updateReview] = useState({})
+  const [tags, setTags] = useState([{}])
 
   const{reviewId} = useParams()
 
@@ -16,14 +18,17 @@ export const ReviewDetails = () =>{
       getReviewById(reviewId).then(response => updateReview(response))
   },[])
 
-  console.log("review", review)
-
-
-
+  useEffect(() => {
+    getTagByReviewId(reviewId)
+      .then(tags => {
+        setTags(tags);
+      });
+  }, []);
 
   return (
       <Card>
-      <h3>{review.locationName}</h3>
+      <h2>{review.locationName}</h2>
+      <h3>{review.locationAddress}</h3>
       <CardBody>
           <p>Butteriness: {review.butteryScore}</p>
           <p>Flakiness: {review.flakeyScore}</p>
@@ -31,7 +36,14 @@ export const ReviewDetails = () =>{
           <p>Gravy Flavor: {review.flavorScore}</p>
           <p>Delivery Flavor: {review.deliveryScore}</p>
           <p>Average Score: {review.averageScore}</p>
+          <p>Gravy Type: {review.gravyType}</p>
           <p>Notes: {review.notes}</p>
+          <h3>Tags:</h3>
+          <div>
+            {tags.map(tag => (
+              <p>{tag.name}</p>       
+              ))}
+          </div>
       </CardBody>
       <button onClick={() => {navigate(`/review`)}}>Back to List</button>
   </Card>

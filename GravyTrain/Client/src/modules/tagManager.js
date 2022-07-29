@@ -5,8 +5,8 @@ export const getTags = () => {
   .then(res => res.json())
 }
 
-export const getTagByUserId = (userId) => {
-  return fetch(`${baseUrl}/User/${userId}`)
+export const getTagByReviewId = (reviewId) => {
+  return fetch(`${baseUrl}/User/${reviewId}`)
   .then(res => res.json())
 }
 

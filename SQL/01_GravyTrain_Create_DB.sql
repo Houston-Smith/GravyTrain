@@ -58,6 +58,11 @@ GO
 ALTER TABLE [Review] ADD FOREIGN KEY ([UserProfileId]) REFERENCES [UserProfile] ([Id])
 GO
 
+ALTER TABLE [TagReview]  WITH CHECK ADD  CONSTRAINT [FK_TagReview_Review] FOREIGN KEY([ReviewId])
+REFERENCES  [Review] ([ReviewId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [TagReview] ADD FOREIGN KEY ([ReviewId]) REFERENCES [Review] ([Id])
 GO
 

@@ -14,7 +14,7 @@ export const ReviewList = () => {
   const getReviews = () => {
     getLoggedInUser().then(user => getReviewByUserId(user.id).
       then(reviews => {
-      console.log(user); console.log(reviews); setReviews(reviews);
+      setReviews(reviews);
   }))};
 
   useEffect(() => {
@@ -26,39 +26,32 @@ export const ReviewList = () => {
     .then(() => getReviews())
   };
 
+  console.log(reviews)
+
   return (
     <main>
       <section className="review-box-outer-1">
         <section className="review-box-outer-2">
           <section className="review-box">
-            <Table>
-                <thead>
-                    <tr>
-                        <th>Location Name</th>
-                        <th>Average Score</th>
-                        <th>Tags</th>
-                    </tr>
-                </thead>
-                <tbody>
+                <div>
                     {reviews.map(review => 
-                    <>
-                        <tr>
-                            <td>{review.locationName}</td>  
-                            <td>{review.averageScore}</td>                    
-                            <td>{review.tags.map(tag =>
-                              <p>{tag.name}</p>
+                        <div key={review.id}>
+                            <p><b>{review.locationName}</b></p>  
+                            <p>{review.averageScore}</p>                    
+                            <p>{review.tags.map(tag =>
+                              <li key={tag.id}>{tag.name}</li>
                               )}
-                            <td>
-                            <button onClick={() => callDeleteReview(review.id)}>Delete Review</button>
-                            <button onClick={() => {navigate(`/review/${review.id}/details`)}}>Review Details</button>
-                            <button onClick={() => {navigate(`/review/${review.id}/edit`)}}>Edit Review</button>
-                            </td>
-                            </td>
-                        </tr>                        
-                    </>
+                            </p>  
+
+                            <div>
+                              <button onClick={() => callDeleteReview(review.id)}>Delete Review</button>
+                              <button onClick={() => {navigate(`/review/${review.id}/details`)}}>Review Details</button>
+                              <button onClick={() => {navigate(`/review/${review.id}/edit`)}}>Edit Review</button>
+                            </div>
+
+                        </div>                        
                     )}
-                </tbody>
-              </Table>
+                </div>
             <button onClick={() => {navigate("/review/add")}}>Create Review</button>
           </section>
         </section>
