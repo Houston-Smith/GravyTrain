@@ -24,6 +24,7 @@ export const ReviewDetails = () =>{
   return (
       <Card>
       <h3>{review.locationName}</h3>
+      <h5>{review.locationAddress}</h5>
       <CardBody>
           <p>Butteriness: {review.butteryScore}</p>
           <p>Flakiness: {review.flakeyScore}</p>
@@ -31,6 +32,7 @@ export const ReviewDetails = () =>{
           <p>Gravy Flavor: {review.flavorScore}</p>
           <p>Delivery Flavor: {review.deliveryScore}</p>
           <p>Average Score: {review.averageScore}</p>
+          <p>Gravy Type: {review.gravyType}</p>
           <p>Notes: {review.notes}</p>
       </CardBody>
       <button onClick={() => {navigate(`/review`)}}>Back to List</button>

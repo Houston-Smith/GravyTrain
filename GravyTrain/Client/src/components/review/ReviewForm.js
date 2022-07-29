@@ -20,6 +20,7 @@ export const ReviewForm = () => {
 
   const [review, setReview] = useState({
     locationName: "",
+    locationAddress: "",
     createDateTime: "",
     butteryScore:0,
     flakeyScore:0,
@@ -28,6 +29,7 @@ export const ReviewForm = () => {
     deliveryScore:0,
     averageScore:0,
     notes: "",
+    gravyType: "",
   })
 
   const handleControlledInputChange = (event) => {
@@ -55,7 +57,15 @@ export const ReviewForm = () => {
     newReview.userProfileId = currentUser.id  
 
     if (reviewNotes === "") {
-      review.notes = "No Notes"
+      newReview.notes = "No Notes"
+    }
+
+    if (newReview.locationAddress === "") {
+      newReview.locationAddress = "N/A"
+    }
+
+    if (newReview.gravyType === "") {
+      newReview.gravyType = "---"
     }
 
     if (reviewLocation === "") {
@@ -79,6 +89,11 @@ export const ReviewForm = () => {
         <fieldset>
 						<label htmlFor="locationName">Location Name:</label>
 						<input type="text" id="locationName" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationName} />
+				</fieldset>
+
+        <fieldset>
+						<label htmlFor="locationAddress">Location Address:</label>
+						<input type="text" id="locationAddress" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationAddress} />
 				</fieldset>
 
         <fieldset>
@@ -163,6 +178,16 @@ export const ReviewForm = () => {
               <option value={8}>8</option>
               <option value={9}>9</option>
               <option value={10}>10</option>
+            </select>
+				</fieldset>
+
+        <fieldset>
+						<label htmlFor="gravyType">Gravy Type:</label>
+						<select id="gravyType" onChange={handleControlledInputChange} value={review.gravyType}>
+              <option value={""}>---</option>
+              <option value={"White"}>White</option>
+              <option value={"Brown"}>Brown</option>
+              <option value={"Sausage"}>Sausage</option>
             </select>
 				</fieldset>
 

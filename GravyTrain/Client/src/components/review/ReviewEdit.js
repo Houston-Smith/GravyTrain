@@ -36,12 +36,14 @@ export const ReviewEdit = () => {
     const editedReview = {
       id: reviewId,
       locationName: review.locationName,
+      locationAddress: review.locationAddress,
       dateReviewed: review.dateReviewed,
       butteryScore: review.butteryScore,
       flakeyScore: review.flakeyScore,
       gravyScore: review.gravyScore,
       flavorScore: review.flavorScore,
       deliveryScore: review.deliveryScore,
+      gravyType: review.gravyType,
       notes: review.notes,
       userProfileId: review.userProfileId
     };
@@ -55,6 +57,14 @@ export const ReviewEdit = () => {
     
     if (reviewNotes === "") {
       editedReview.notes = "No Notes"
+    }
+
+    if (editedReview.locationAddress === "") {
+      editedReview.locationAddress = "N/A"
+    }
+
+    if (editedReview.gravyType === "") {
+      editedReview.gravyType = "---"
     }
 
     if (reviewLocation === "") {
@@ -79,6 +89,11 @@ export const ReviewEdit = () => {
           <label htmlFor="locationName">Location Name:</label>
           <input type="text" id="locationName" onChange={handleFieldChange} required autoFocus value={review.locationName} />
       </fieldset>
+
+      <fieldset>
+						<label htmlFor="locationAddress">Location Address:</label>
+						<input type="text" id="locationAddress" onChange={handleFieldChange} required autoFocus className="form-control" value={review.locationAddress} />
+				</fieldset>
 
       <fieldset>
 						<label htmlFor="butteryScore">Butteriness:</label>
@@ -162,6 +177,16 @@ export const ReviewEdit = () => {
               <option value={8}>8</option>
               <option value={9}>9</option>
               <option value={10}>10</option>
+            </select>
+				</fieldset>
+
+        <fieldset>
+						<label htmlFor="gravyType">Gravy Type:</label>
+						<select id="gravyType" onChange={handleFieldChange} value={review.gravyType}>
+              <option value={""}>---</option>
+              <option value={"White"}>White</option>
+              <option value={"Brown"}>Brown</option>
+              <option value={"Sausage"}>Sausage</option>
             </select>
 				</fieldset>
 

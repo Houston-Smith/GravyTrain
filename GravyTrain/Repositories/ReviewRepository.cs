@@ -178,6 +178,7 @@ namespace GravyTrain.Repositories
                                 DeliveryScore = @DeliveryScore, AverageScore = @AverageScore, Notes = @Notes, GravyType = @GravyType
                         WHERE Id = @Id";
 
+                    DbUtils.AddParameter(cmd, "@Id", review.Id);
                     DbUtils.AddParameter(cmd, "@LocationName", review.LocationName);
                     DbUtils.AddParameter(cmd, "@LocationAddress", review.LocationAddress);
                     DbUtils.AddParameter(cmd, "@ButteryScore", review.ButteryScore);
