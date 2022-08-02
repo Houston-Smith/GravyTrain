@@ -127,11 +127,6 @@ export const ReviewEdit = () => {
       </fieldset>
 
       <fieldset>
-						<label htmlFor="locationAddress">Location Address:</label>
-						<input type="text" id="locationAddress" onChange={handleFieldChange} required autoFocus className="form-control" value={review.locationAddress} />
-				</fieldset>
-
-      <fieldset>
 						<label htmlFor="butteryScore">Butteriness:</label>
 						<select id="butteryScore" onChange={handleFieldChange} value={review.butteryScore}>
               <option value={0}>0</option>
