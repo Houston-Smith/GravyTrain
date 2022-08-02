@@ -4,6 +4,7 @@ import { getReviewById } from "../../modules/reviewManager"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getTagByReviewId } from "../../modules/tagManager"
+import "./ReviewDetails.css"
 
 export const ReviewDetails = () =>{
 
@@ -26,9 +27,10 @@ export const ReviewDetails = () =>{
   }, []);
 
   return (
+    <section>
     <section className="details-box">
       <h3>{review.locationName}</h3>
-      <h5>{review.locationAddress}</h5>
+      <h4>{review.locationAddress}</h4>
       <section className="details-info">
           <p>Butteriness: {review.butteryScore}</p>
           <p>Flakiness: {review.flakeyScore}</p>
@@ -45,7 +47,8 @@ export const ReviewDetails = () =>{
               ))}
           </div>
       </section>
-      <button className="large-button" onClick={() => {navigate(`/review`)}}>Back to List</button>
+  </section>
+      <button className="details-large-button" onClick={() => {navigate(`/review`)}}>Back to List</button>
   </section>
   )
 }

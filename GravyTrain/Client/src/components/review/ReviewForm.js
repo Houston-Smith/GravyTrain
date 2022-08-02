@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { addReview } from "../../modules/reviewManager";
 import { getLoggedInUser } from "../../modules/userManager";
 import { getTags, addTagReviews } from "../../modules/tagManager";
+import "./ReviewForm.css"
 
 
 export const ReviewForm = () => {
@@ -104,43 +105,24 @@ export const ReviewForm = () => {
 		navigate("/review")
 	}
 
-  const CheckBoxes = (event) => {
-    let checkedTags = []
-    tags.map(tag => {
-      if(document.querySelector(`#tag--` + tag.id).checked === true)
-      {
-        const newTagReview = {}
-        newTagReview.tagId = tag.id
-        newTagReview.reviewId = 1
-        checkedTags.push(newTagReview)
-      }
-    })
-
-    if (checkedTags === []) {
-      console.log("No Tags")
-    }
-    else {
-      addTagReviews(checkedTags)
-    }
-	}
-
   return (
     <main>
-      <h1>New Review</h1>
-        
+      <section className="form-card">
+        <h1>New Review</h1>
+          
         <fieldset>
-						<label htmlFor="locationName">Location Name:</label>
-						<input type="text" id="locationName" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationName} />
-				</fieldset>
+            <label htmlFor="locationName">Location Name: </label>
+            <input type="text" id="locationName" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationName} />
+        </fieldset>
 
         <fieldset>
-						<label htmlFor="locationAddress">Location Address:</label>
-						<input type="text" id="locationAddress" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationAddress} />
-				</fieldset>
+            <label htmlFor="locationAddress">Location Address: </label>
+            <input type="text" id="locationAddress" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationAddress} />
+        </fieldset>
 
         <fieldset>
-						<label htmlFor="butteryScore">Butteriness:</label>
-						<select id="butteryScore" onChange={handleControlledInputChange} value={review.butteryScore}>
+            <label htmlFor="butteryScore">Butteriness: </label>
+            <select id="butteryScore" onChange={handleControlledInputChange} value={review.butteryScore}>
               <option value={0}>0</option>
               <option value={1}>1</option>
               <option value={2}>2</option>
@@ -153,11 +135,11 @@ export const ReviewForm = () => {
               <option value={9}>9</option>
               <option value={10}>10</option>
             </select>  
-				</fieldset>
+        </fieldset>
 
         <fieldset>
-						<label htmlFor="flakeyScore">Flakiness:</label>
-						<select id="flakeyScore" onChange={handleControlledInputChange} value={review.flakeyScore}>
+            <label htmlFor="flakeyScore">Flakiness: </label>
+            <select id="flakeyScore" onChange={handleControlledInputChange} value={review.flakeyScore}>
               <option value={0}>0</option>
               <option value={1}>1</option>
               <option value={2}>2</option>
@@ -170,11 +152,11 @@ export const ReviewForm = () => {
               <option value={9}>9</option>
               <option value={10}>10</option>
             </select>
-				</fieldset>
+        </fieldset>
 
         <fieldset>
-						<label htmlFor="gravyScore">Gravy Consistancy:</label>
-						<select id="gravyScore" onChange={handleControlledInputChange} value={review.gravyScore}>
+            <label htmlFor="gravyScore">Gravy Consistancy: </label>
+            <select id="gravyScore" onChange={handleControlledInputChange} value={review.gravyScore}>
               <option value={0}>0</option>
               <option value={1}>1</option>
               <option value={2}>2</option>
@@ -187,11 +169,11 @@ export const ReviewForm = () => {
               <option value={9}>9</option>
               <option value={10}>10</option>
             </select>
-				</fieldset>
+        </fieldset>
 
         <fieldset>
-						<label htmlFor="flavorScore">Gravy Flavor:</label>
-						<select id="flavorScore" onChange={handleControlledInputChange} value={review.flavorScore}>
+            <label htmlFor="flavorScore">Gravy Flavor: </label>
+            <select id="flavorScore" onChange={handleControlledInputChange} value={review.flavorScore}>
               <option value={0}>0</option>
               <option value={1}>1</option>
               <option value={2}>2</option>
@@ -204,11 +186,11 @@ export const ReviewForm = () => {
               <option value={9}>9</option>
               <option value={10}>10</option>
             </select>
-				</fieldset>
+        </fieldset>
 
         <fieldset>
-						<label htmlFor="deliveryScore">Delivery:</label>
-						<select id="deliveryScore" onChange={handleControlledInputChange} value={review.deliveryScore}>
+            <label htmlFor="deliveryScore">Delivery: </label>
+            <select id="deliveryScore" onChange={handleControlledInputChange} value={review.deliveryScore}>
               <option value={0}>0</option>
               <option value={1}>1</option>
               <option value={2}>2</option>
@@ -221,49 +203,49 @@ export const ReviewForm = () => {
               <option value={9}>9</option>
               <option value={10}>10</option>
             </select>
-				</fieldset>
+        </fieldset>
 
         <fieldset>
-						<label htmlFor="gravyType">Gravy Type:</label>
-						<select id="gravyType" onChange={handleControlledInputChange} value={review.gravyType}>
+            <label htmlFor="gravyType">Gravy Type: </label>
+            <select id="gravyType" onChange={handleControlledInputChange} value={review.gravyType}>
               <option value={"---"}>---</option>
               <option value={"White"}>White</option>
               <option value={"Brown"}>Brown</option>
               <option value={"Sausage"}>Sausage</option>
             </select>  
-				</fieldset>
+        </fieldset>
 
         <fieldset>
-						<label htmlFor="tags">Tags:</label>
-						<div id="root">
+            <label htmlFor="tags">Tags:</label>
+            <div id="root">
               {tags.map(tag => (
                 <label htmlFor={tag.name}>
-                      <p>{tag.name}</p>
-                     <input type="checkbox" id={"tag--" + tag.id} name={tag.name} value={tag.id} ></input>
+                      <p><b>{tag.name}</b></p>
+                    <input type="checkbox" id={"tag--" + tag.id} name={tag.name} value={tag.id} ></input>
                 </label>        
               ))}
             </div>  
-				</fieldset>
+        </fieldset>
 
         <fieldset>
-						<label htmlFor="notes">Additional Notes:</label>
-						<input type="text" id="notes" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.notes} />
-				</fieldset>
+            <label htmlFor="notes">Additional Notes:</label>
+            <input type="text" id="notes" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.notes} />
+        </fieldset>
 
-      <div className="buttons">
-					<button
-						onClick={ClickAddReview}>
-						Create Review
-					</button>
-					<button
-						onClick={ClickCancel}>
-						Cancel
-					</button>
+      </section>
+
+      <div className="form-buttons">
           <button
-						onClick={CheckBoxes}>
-						Check Boxes
-					</button>
-				</div>
+            onClick={ClickAddReview}>
+            Create Review
+          </button>
+
+          <button
+            onClick={ClickCancel}>
+            Cancel
+          </button>
+          
+        </div>
     </main>
 
   )
