@@ -26,10 +26,10 @@ export const ReviewDetails = () =>{
   }, []);
 
   return (
-      <Card>
+    <section className="details-box">
       <h3>{review.locationName}</h3>
       <h5>{review.locationAddress}</h5>
-      <CardBody>
+      <section className="details-info">
           <p>Butteriness: {review.butteryScore}</p>
           <p>Flakiness: {review.flakeyScore}</p>
           <p>Gravy Consistancy: {review.gravyScore}</p>
@@ -44,8 +44,8 @@ export const ReviewDetails = () =>{
               <p>{tag.name}</p>       
               ))}
           </div>
-      </CardBody>
-      <button onClick={() => {navigate(`/review`)}}>Back to List</button>
-  </Card>
+      </section>
+      <button className="large-button" onClick={() => {navigate(`/review`)}}>Back to List</button>
+  </section>
   )
 }

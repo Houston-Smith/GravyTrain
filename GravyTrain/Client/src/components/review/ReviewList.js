@@ -3,7 +3,8 @@ import { Table } from "reactstrap";
 import { useNavigate } from "react-router-dom";
 import { getReviewByUserId, deleteReview} from "../../modules/reviewManager";
 import { getLoggedInUser } from "../../modules/userManager";
-import "./Review.css"
+import { ReviewCard } from "./ReviewCard";
+import "./ReviewList.css"
 
 export const ReviewList = () => {
   
@@ -30,32 +31,13 @@ export const ReviewList = () => {
 
   return (
     <main>
-      <section className="review-box-outer-1">
-        <section className="review-box-outer-2">
-          <section className="review-box">
-                <div>
-                    {reviews.map(review => 
-                        <div key={review.id}>
-                            <p><b>{review.locationName}</b></p>  
-                            <p>{review.averageScore}</p>                    
-                            <p>{review.tags.map(tag =>
-                              <li key={tag.id}>{tag.name}</li>
-                              )}
-                            </p>  
-
-                            <div>
-                              <button onClick={() => callDeleteReview(review.id)}>Delete Review</button>
-                              <button onClick={() => {navigate(`/review/${review.id}/details`)}}>Review Details</button>
-                              <button onClick={() => {navigate(`/review/${review.id}/edit`)}}>Edit Review</button>
-                            </div>
-
-                        </div>                        
-                    )}
-                </div>
-            <button onClick={() => {navigate("/review/add")}}>Create Review</button>
-          </section>
-        </section>
+      <section className="image-box"></section>
+      <section className="review-list">
+        {reviews.map(review => 
+            <ReviewCard key={review.id} review={review} callDeleteReview={callDeleteReview}/>                     
+        )}
       </section>
+      <button className="large-button" onClick={() => {navigate("/review/add")}}>New Review</button>
     </main>
 )
 }
