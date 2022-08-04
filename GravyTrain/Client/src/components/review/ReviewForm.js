@@ -105,6 +105,12 @@ export const ReviewForm = () => {
 		navigate("/review")
 	}
 
+  const ClickLog = (event) => {
+		let newReview = { ...review }
+
+    console.log(newReview)
+	}
+
   return (
     <main>
       <section className="form-card">
@@ -120,90 +126,85 @@ export const ReviewForm = () => {
             <input type="text" id="locationAddress" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationAddress} />
         </fieldset>
 
-        <fieldset>
-            <label htmlFor="butteryScore">Butteriness: </label>
-            <select id="butteryScore" onChange={handleControlledInputChange} value={review.butteryScore}>
-              <option value={0}>0</option>
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-            </select>  
-        </fieldset>
+        <b><p className="name">Butteriness</p></b>
+          <div className="reviews">
+            <div className="rating">
+              <input onChange={handleControlledInputChange} id="butteryScore" type ="radio" name="buttery" value={10}/>
+              <input onChange={handleControlledInputChange} id="butteryScore" type ="radio" name="buttery" value={9}/>
+              <input onChange={handleControlledInputChange} id="butteryScore" type ="radio" name="buttery" value={8}/>
+              <input onChange={handleControlledInputChange} id="butteryScore" type ="radio" name="buttery" value={7}/>
+              <input onChange={handleControlledInputChange} id="butteryScore" type ="radio" name="buttery" value={6}/>
+              <input onChange={handleControlledInputChange} id="butteryScore" type ="radio" name="buttery" value={5}/>
+              <input onChange={handleControlledInputChange} id="butteryScore" type ="radio" name="buttery" value={4}/>
+              <input onChange={handleControlledInputChange} id="butteryScore" type ="radio" name="buttery" value={3}/>
+              <input onChange={handleControlledInputChange} id="butteryScore" type ="radio" name="buttery" value={2}/>
+              <input onChange={handleControlledInputChange} id="butteryScore" type ="radio" name="buttery" value={1}/>
+            </div>
+        </div>
 
-        <fieldset>
-            <label htmlFor="flakeyScore">Flakiness: </label>
-            <select id="flakeyScore" onChange={handleControlledInputChange} value={review.flakeyScore}>
-              <option value={0}>0</option>
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-            </select>
-        </fieldset>
+        <b><p className="name">Flakiness</p></b>
+          <div className="reviews">
+            <div className="rating">
+              <input onChange={handleControlledInputChange} id="flakeyScore" type ="radio" name="flakey" value={10}/>
+              <input onChange={handleControlledInputChange} id="flakeyScore" type ="radio" name="flakey" value={9}/>
+              <input onChange={handleControlledInputChange} id="flakeyScore" type ="radio" name="flakey" value={8}/>
+              <input onChange={handleControlledInputChange} id="flakeyScore" type ="radio" name="flakey" value={7}/>
+              <input onChange={handleControlledInputChange} id="flakeyScore" type ="radio" name="flakey" value={6}/>
+              <input onChange={handleControlledInputChange} id="flakeyScore" type ="radio" name="flakey" value={5}/>
+              <input onChange={handleControlledInputChange} id="flakeyScore" type ="radio" name="flakey" value={4}/>
+              <input onChange={handleControlledInputChange} id="flakeyScore" type ="radio" name="flakey" value={3}/>
+              <input onChange={handleControlledInputChange} id="flakeyScore" type ="radio" name="flakey" value={2}/>
+              <input onChange={handleControlledInputChange} id="flakeyScore" type ="radio" name="flakey" value={1}/>
+            </div>
+        </div>
 
-        <fieldset>
-            <label htmlFor="gravyScore">Gravy Consistancy: </label>
-            <select id="gravyScore" onChange={handleControlledInputChange} value={review.gravyScore}>
-              <option value={0}>0</option>
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-            </select>
-        </fieldset>
+        <b><p className="name">Gravy Consistancy</p></b>
+          <div className="reviews">
+            <div className="rating">
+              <input onChange={handleControlledInputChange} id="gravyScore" type ="radio" name="gravy" value={10}/>
+              <input onChange={handleControlledInputChange} id="gravyScore" type ="radio" name="gravy" value={9}/>
+              <input onChange={handleControlledInputChange} id="gravyScore" type ="radio" name="gravy" value={8}/>
+              <input onChange={handleControlledInputChange} id="gravyScore" type ="radio" name="gravy" value={7}/>
+              <input onChange={handleControlledInputChange} id="gravyScore" type ="radio" name="gravy" value={6}/>
+              <input onChange={handleControlledInputChange} id="gravyScore" type ="radio" name="gravy" value={5}/>
+              <input onChange={handleControlledInputChange} id="gravyScore" type ="radio" name="gravy" value={4}/>
+              <input onChange={handleControlledInputChange} id="gravyScore" type ="radio" name="gravy" value={3}/>
+              <input onChange={handleControlledInputChange} id="gravyScore" type ="radio" name="gravy" value={2}/>
+              <input onChange={handleControlledInputChange} id="gravyScore" type ="radio" name="gravy" value={1}/>
+            </div>
+        </div>
 
-        <fieldset>
-            <label htmlFor="flavorScore">Gravy Flavor: </label>
-            <select id="flavorScore" onChange={handleControlledInputChange} value={review.flavorScore}>
-              <option value={0}>0</option>
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-            </select>
-        </fieldset>
+        <b><p className="name">Gravy Flavor</p></b>
+          <div className="reviews">
+            <div className="rating">
+              <input onChange={handleControlledInputChange} id="flavorScore" type ="radio" name="flavor" value={10}/>
+              <input onChange={handleControlledInputChange} id="flavorScore" type ="radio" name="flavor" value={9}/>
+              <input onChange={handleControlledInputChange} id="flavorScore" type ="radio" name="flavor" value={8}/>
+              <input onChange={handleControlledInputChange} id="flavorScore" type ="radio" name="flavor" value={7}/>
+              <input onChange={handleControlledInputChange} id="flavorScore" type ="radio" name="flavor" value={6}/>
+              <input onChange={handleControlledInputChange} id="flavorScore" type ="radio" name="flavor" value={5}/>
+              <input onChange={handleControlledInputChange} id="flavorScore" type ="radio" name="flavor" value={4}/>
+              <input onChange={handleControlledInputChange} id="flavorScore" type ="radio" name="flavor" value={3}/>
+              <input onChange={handleControlledInputChange} id="flavorScore" type ="radio" name="flavor" value={2}/>
+              <input onChange={handleControlledInputChange} id="flavorScore" type ="radio" name="flavor" value={1}/>
+            </div>
+        </div>
 
-        <fieldset>
-            <label htmlFor="deliveryScore">Delivery: </label>
-            <select id="deliveryScore" onChange={handleControlledInputChange} value={review.deliveryScore}>
-              <option value={0}>0</option>
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-              <option value={6}>6</option>
-              <option value={7}>7</option>
-              <option value={8}>8</option>
-              <option value={9}>9</option>
-              <option value={10}>10</option>
-            </select>
-        </fieldset>
+        <b><p className="name">Delivery</p></b>
+          <div className="reviews">
+            <div className="rating">
+              <input onChange={handleControlledInputChange} id="deliveryScore" type ="radio" name="delivery" value={10}/>
+              <input onChange={handleControlledInputChange} id="deliveryScore" type ="radio" name="delivery" value={9}/>
+              <input onChange={handleControlledInputChange} id="deliveryScore" type ="radio" name="delivery" value={8}/>
+              <input onChange={handleControlledInputChange} id="deliveryScore" type ="radio" name="delivery" value={7}/>
+              <input onChange={handleControlledInputChange} id="deliveryScore" type ="radio" name="delivery" value={6}/>
+              <input onChange={handleControlledInputChange} id="deliveryScore" type ="radio" name="delivery" value={5}/>
+              <input onChange={handleControlledInputChange} id="deliveryScore" type ="radio" name="delivery" value={4}/>
+              <input onChange={handleControlledInputChange} id="deliveryScore" type ="radio" name="delivery" value={3}/>
+              <input onChange={handleControlledInputChange} id="deliveryScore" type ="radio" name="delivery" value={2}/>
+              <input onChange={handleControlledInputChange} id="deliveryScore" type ="radio" name="delivery" value={1}/>
+            </div>
+        </div>
 
         <fieldset>
             <label htmlFor="gravyType">Gravy Type: </label>
@@ -243,6 +244,11 @@ export const ReviewForm = () => {
           <button
             onClick={ClickCancel}>
             Cancel
+          </button>
+
+          <button
+            onClick={ClickLog}>
+            Log
           </button>
           
         </div>
