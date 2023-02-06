@@ -6,60 +6,52 @@ main {
 }
 
 body {
-  background-color: #ffe8df;
+  background-color: #FFF1D0;
 }
 
- .review-card-outer-1 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: inset 1px 1px 3px 2px rgba(0,0,0,0.4);
-  background-color: #ffe8df;
-  padding: .5em;
-  margin: 1em;
-  border-radius: 5px;
-} 
-
-.review-card-outer-2 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: inset 1px 1px 3px 2px rgba(0,0,0,0.4);
-  background-color: #f3dbd1fb;
-  padding: 1em;
-  border-radius: 5px;
+.points {
+  color:#F0C808;
+  font-weight: bolder;
+  text-shadow: 1px 1px 0px rgba(0,0,0,.7);
 }
 
 .review-card {
   display: flex;
+  background-color: #06AED5;
   flex-direction: column;
-  background-color: #ffe8df;
-  box-shadow: 1px 1px 4px 4px rgba(0,0,0,0.4);
-  padding: .5em;
+  box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.7);
+  padding: 0 10em .5em .5em;
+  margin: 0 1.5em;
+  border: 2px solid black;
   border-radius: 5px;
+  size: 10em;
+}
+
+.review-card:hover{
+  transform: scale(1.1);
+  background-color: #086788;
 }
 
 .review-list {
   display: flex;
   flex-direction: row;
-  background-color: #ffe8df;
-  box-shadow: 3px 3px 4px 4px rgba(0,0,0,0.4);
-  width: 90%;
+  width: 85%;
   padding: 1em;
   border-radius: 5px;
 }
 
 .review-card-buttons button {
-  background-color: #ffe8df;
+  background-color: rgba(0,0,0,0);
   border:none;
   text-shadow: 3px 3px 4px 4px rgba(0,0,0,0.4);
-  padding: 0 .5em;
-  margin: 0 .5em;
-  font-weight: bold;
+  color: #DD1C1A;
+  font-size: 2em;
+
+  font-weight: bolder;
 }
 
 .review-card-buttons button:hover{
-  text-shadow: .5px .5px .5px rgba(0,0,0,0.4);
+  text-shadow: 0 0 10px rgba(0,0,0,.7);
 }
 
 .image-box {
@@ -81,15 +73,16 @@ body {
 .large-button {
   margin-top: 2em;
   font-size:large;
+  font-weight: bolder;
   width: 12em;
   height: 5em;
-  background-color: #ffe8df;
-  box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.4);
+  background-color: #DD1C1A;
+  box-shadow: 7px 7px 0px 0px rgba(0,0,0,0.7);
   padding: .5em;
   border: none;
   border-radius: 5px;
 }
 
 .large-button:hover{
-  box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.4);
+  box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.7);
 }

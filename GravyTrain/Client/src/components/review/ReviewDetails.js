@@ -1,6 +1,6 @@
 import { Card, CardBody } from "reactstrap"
 import { Navigate, useNavigate } from "react-router-dom"
-import { getReviewById } from "../../modules/reviewManager"
+import { getReviewById, deleteReview } from "../../modules/reviewManager"
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { getTagByReviewId } from "../../modules/tagManager"
@@ -26,6 +26,11 @@ export const ReviewDetails = () =>{
       });
   }, []);
 
+  const callDeleteReview = (id) => {
+    deleteReview(id)
+    .then(() => navigate(`/review`))
+  };
+
   return (
     <section>
     <section className="details-box">
@@ -48,7 +53,9 @@ export const ReviewDetails = () =>{
           </div>
       </section>
   </section>
+      <button className="details-large-button" onClick={() => {callDeleteReview(reviewId)} }>Delete Review</button>
       <button className="details-large-button" onClick={() => {navigate(`/review`)}}>Back to List</button>
+      <button className="details-large-button" onClick={() => {navigate(`/review/${reviewId}/edit`)}}>Edit Review</button>
   </section>
   )
 }
