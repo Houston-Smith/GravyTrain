@@ -1,0 +1,81 @@
+.form-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffe8df;
+  box-shadow: 3px 3px 4px 4px rgba(0,0,0,0.4);
+  padding: 1em;
+  border-radius: 5px;
+}
+
+.form-card fieldset {
+  border: none;
+}
+
+
+.form-buttons {
+  margin-bottom: 2em;
+}
+
+.form-buttons button {
+  margin-top: 2em;
+  margin-left: 1em;
+  font-size:small;
+  width: 10em;
+  height: 3em;
+  background-color: #ffe8df;
+  box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.4);
+  padding: .5em;
+  border: none;
+  border-radius: 5px;
+}
+
+.form-buttons button:hover {
+  box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.4);
+}
+
+.reviews {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.reviews .rating {
+  position:relative;
+  display:flex;
+  flex-direction: row-reverse;
+}
+
+.reviews .rating input {
+  position: relative;
+  width: 20px;
+  height: 40px;
+  display: flex;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+  margin: 0px;
+}
+
+.reviews .rating input::before {
+  content:'\f005';
+  position: absolute;
+  font-family: fontAwesome;
+  font-size: 32px;
+  position: absolute;
+  left: 5px;
+  color: gray;
+  transition: 0.3s;
+}
+
+.reviews .rating input:nth-child(2n+1)::before {
+  right: 5px;
+  left: initial;
+}
+
+.reviews .rating input:hover ~ input::before,
+.reviews .rating input:hover::before,
+.reviews .rating input:checked ~ input::before,
+.reviews .rating input:checked::before {
+  color: red;
+}

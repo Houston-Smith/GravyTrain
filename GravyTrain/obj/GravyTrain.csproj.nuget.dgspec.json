@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Houst\\workspace\\csharp\\GravyTrain\\GravyTrain\\GravyTrain.csproj": {}
+    "D:\\Houston\\workspace\\csharp\\GravyTrain\\GravyTrain\\GravyTrain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Houst\\workspace\\csharp\\GravyTrain\\GravyTrain\\GravyTrain.csproj": {
+    "D:\\Houston\\workspace\\csharp\\GravyTrain\\GravyTrain\\GravyTrain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Houst\\workspace\\csharp\\GravyTrain\\GravyTrain\\GravyTrain.csproj",
+        "projectUniqueName": "D:\\Houston\\workspace\\csharp\\GravyTrain\\GravyTrain\\GravyTrain.csproj",
         "projectName": "GravyTrain",
-        "projectPath": "C:\\Users\\Houst\\workspace\\csharp\\GravyTrain\\GravyTrain\\GravyTrain.csproj",
+        "projectPath": "D:\\Houston\\workspace\\csharp\\GravyTrain\\GravyTrain\\GravyTrain.csproj",
         "packagesPath": "C:\\Users\\Houst\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Houst\\workspace\\csharp\\GravyTrain\\GravyTrain\\obj\\",
+        "outputPath": "D:\\Houston\\workspace\\csharp\\GravyTrain\\GravyTrain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Houst\\AppData\\Roaming\\NuGet\\NuGet.Config",

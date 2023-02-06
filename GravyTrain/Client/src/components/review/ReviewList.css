@@ -1,0 +1,88 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fill;
+}
+
+body {
+  background-color: #FFF1D0;
+}
+
+.points {
+  color:#F0C808;
+  font-weight: bolder;
+  text-shadow: 1px 1px 0px rgba(0,0,0,.7);
+}
+
+.review-card {
+  display: flex;
+  background-color: #06AED5;
+  flex-direction: column;
+  box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.7);
+  padding: 0 10em .5em .5em;
+  margin: 0 1.5em;
+  border: 2px solid black;
+  border-radius: 5px;
+  size: 10em;
+}
+
+.review-card:hover{
+  transform: scale(1.1);
+  background-color: #086788;
+}
+
+.review-list {
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+.review-card-buttons button {
+  background-color: rgba(0,0,0,0);
+  border:none;
+  text-shadow: 3px 3px 4px 4px rgba(0,0,0,0.4);
+  color: #DD1C1A;
+  font-size: 2em;
+
+  font-weight: bolder;
+}
+
+.review-card-buttons button:hover{
+  text-shadow: 0 0 10px rgba(0,0,0,.7);
+}
+
+.image-box {
+  width: 15em;
+  height: 15em;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.3)
+  ), url(../../../public/GravyTrainLogo.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;  
+  color:antiquewhite;
+  margin-bottom: 2em;
+  border-radius: 10em;
+  border: 7px solid black;
+}
+
+.large-button {
+  margin-top: 2em;
+  font-size:large;
+  font-weight: bolder;
+  width: 12em;
+  height: 5em;
+  background-color: #DD1C1A;
+  box-shadow: 7px 7px 0px 0px rgba(0,0,0,0.7);
+  padding: .5em;
+  border: none;
+  border-radius: 5px;
+}
+
+.large-button:hover{
+  box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.7);
+}

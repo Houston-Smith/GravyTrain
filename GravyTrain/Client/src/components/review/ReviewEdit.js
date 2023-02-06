@@ -113,26 +113,22 @@ export const ReviewEdit = () => {
   }
 
   return (
-    <>
+  <main>
+    <section className="form-card">
     <h1>Edit a Review</h1>
       
       <fieldset>
-          <label htmlFor="locationName">Location Name:</label>
+          <label htmlFor="locationName">Location Name: </label>
           <input type="text" id="locationName" onChange={handleFieldChange} value={review.locationName} />
       </fieldset>
 
       <fieldset>
-          <label htmlFor="locationAddress">Location Address:</label>
+          <label htmlFor="locationAddress">Location Address: </label>
           <input type="text" id="locationAddress" onChange={handleFieldChange} value={review.locationAddress} />
       </fieldset>
 
       <fieldset>
-						<label htmlFor="locationAddress">Location Address:</label>
-						<input type="text" id="locationAddress" onChange={handleFieldChange} required autoFocus className="form-control" value={review.locationAddress} />
-				</fieldset>
-
-      <fieldset>
-						<label htmlFor="butteryScore">Butteriness:</label>
+						<label htmlFor="butteryScore">Butteriness: </label>
 						<select id="butteryScore" onChange={handleFieldChange} value={review.butteryScore}>
               <option value={0}>0</option>
               <option value={1}>1</option>
@@ -149,7 +145,7 @@ export const ReviewEdit = () => {
 				</fieldset>
       
         <fieldset>
-						<label htmlFor="flakeyScore">Flakiness:</label>
+						<label htmlFor="flakeyScore">Flakiness: </label>
 						<select id="flakeyScore" onChange={handleFieldChange} value={review.flakeyScore}>
             <option value={0}>0</option>
               <option value={1}>1</option>
@@ -166,7 +162,7 @@ export const ReviewEdit = () => {
 				</fieldset>
 
         <fieldset>
-						<label htmlFor="gravyScore">Gravy Consistancy:</label>
+						<label htmlFor="gravyScore">Gravy Consistancy: </label>
 						<select id="gravyScore" onChange={handleFieldChange} value={review.gravyScore}>
             <option value={0}>0</option>
               <option value={1}>1</option>
@@ -183,7 +179,7 @@ export const ReviewEdit = () => {
 				</fieldset>
 
         <fieldset>
-						<label htmlFor="flavorScore">Gravy Flavor:</label>
+						<label htmlFor="flavorScore">Gravy Flavor: </label>
 						<select id="flavorScore" onChange={handleFieldChange} value={review.flavorScore}>
             <option value={0}>0</option>
               <option value={1}>1</option>
@@ -200,7 +196,7 @@ export const ReviewEdit = () => {
 				</fieldset>
 
         <fieldset>
-						<label htmlFor="deliveryScore">Delivery:</label>
+						<label htmlFor="deliveryScore">Delivery: </label>
 						<select id="deliveryScore" onChange={handleFieldChange} value={review.deliveryScore}>
             <option value={0}>0</option>
               <option value={1}>1</option>
@@ -217,7 +213,7 @@ export const ReviewEdit = () => {
 				</fieldset>
 
         <fieldset>
-						<label htmlFor="gravyType">Gravy Type:</label>
+						<label htmlFor="gravyType">Gravy Type: </label>
 						<select id="gravyType" onChange={handleFieldChange} value={review.gravyType}>
               <option value={"---"}>---</option>
               <option value={"White"}>White</option>
@@ -227,11 +223,11 @@ export const ReviewEdit = () => {
 				</fieldset>
 
         <fieldset>
-						<label htmlFor="tags">Tags:</label>
+						<label htmlFor="tags">Tags: </label>
 						<div id="root">
               {tags.map(tag => (
                 <label htmlFor={tag.name}>
-                      <p>{tag.name}</p>
+                      <p><b>{tag.name}</b></p>
                      <input type="checkbox" id={"tag--" + tag.id} name={tag.name} value={tag.id} ></input>
                 </label>        
               ))}
@@ -239,10 +235,12 @@ export const ReviewEdit = () => {
 				</fieldset>
 
         <fieldset>
-          <label htmlFor="notes">Additional Notes:</label>
+          <label htmlFor="notes">Additional Notes: </label>
           <input type="text" id="notes" onChange={handleFieldChange} value={review.notes} />
       </fieldset>
 
+    </section>  
+    <div className="form-buttons">  
       <button disabled={isLoading}
         onClick={updateExistingReview}>
         Update
@@ -251,8 +249,9 @@ export const ReviewEdit = () => {
       <button disabled={isLoading}
         onClick={ClickCancel}>
         Cancel
-      </button>   
-    </>
+      </button>
+    </div>  
+  </main>
   )
 
 }
