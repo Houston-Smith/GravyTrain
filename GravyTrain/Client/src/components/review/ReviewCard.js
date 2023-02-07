@@ -8,7 +8,7 @@ export const ReviewCard = ({review, callDeleteReview}) => {
   const navigate = useNavigate()
 
   return (
-    <section className="review-card" onClick={() => {navigate(`/review/${review.id}/edit`)}}>
+    <section className="review-card" onClick={() => {navigate(`/review/${review.id}/details`)}}>
             <h2><b>{review.locationName}</b></h2>  
             <p className="points"><b>{review.averageScore} Points</b></p>                    
             <p>{review.tags.map(tag =>

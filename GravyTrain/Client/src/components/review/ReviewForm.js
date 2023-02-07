@@ -115,16 +115,22 @@ export const ReviewForm = () => {
     <main>
       <section className="form-card">
         <h1>New Review</h1>
-          
-        <fieldset>
-            <label htmlFor="locationName">Location Name: </label>
-            <input type="text" id="locationName" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationName} />
-        </fieldset>
 
-        <fieldset>
-            <label htmlFor="locationAddress">Location Address: </label>
-            <input type="text" id="locationAddress" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationAddress} />
-        </fieldset>
+        <section>
+          <b><p className="input-paragraph">Location Name</p></b> 
+          <fieldset className="input-fieldset">
+              <label htmlFor="locationName"></label>
+              <input  type="text" id="locationName" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.locationName} />
+          </fieldset>
+        </section>
+
+        <section>
+          <b><p className="input-paragraph">Location Address</p></b>
+          <fieldset className="input-fieldset">
+              <label htmlFor="locationAddress"></label>
+              <input type="text" id="locationAddress" onChange={handleControlledInputChange} required className="form-control" value={review.locationAddress} />
+          </fieldset>
+        </section>
 
         <b><p className="name">Butteriness</p></b>
           <div className="reviews">
@@ -206,8 +212,8 @@ export const ReviewForm = () => {
             </div>
         </div>
 
-        <fieldset>
-            <label htmlFor="gravyType">Gravy Type: </label>
+        <fieldset className="other-fieldset">
+            <b><label htmlFor="gravyType">Gravy Type: </label></b>
             <select id="gravyType" onChange={handleControlledInputChange} value={review.gravyType}>
               <option value={"---"}>---</option>
               <option value={"White"}>White</option>
@@ -216,40 +222,43 @@ export const ReviewForm = () => {
             </select>  
         </fieldset>
 
-        <fieldset>
-            <label htmlFor="tags">Tags:</label>
+        <fieldset className="other-fieldset">
+            <b><label htmlFor="tags">Tags:</label></b>
             <div id="root">
               {tags.map(tag => (
                 <label htmlFor={tag.name}>
-                      <p><b>{tag.name}</b></p>
+                      <p>{tag.name}</p>
                     <input type="checkbox" id={"tag--" + tag.id} name={tag.name} value={tag.id} ></input>
                 </label>        
               ))}
             </div>  
         </fieldset>
 
-        <fieldset>
-            <label htmlFor="notes">Additional Notes:</label>
-            <input type="text" id="notes" onChange={handleControlledInputChange} required autoFocus className="form-control" value={review.notes} />
-        </fieldset>
+        <section> 
+          <b><p className="input-paragraph">Additional Notes</p></b>         
+          <fieldset className="input-fieldset">
+              <label htmlFor="notes"></label>
+              <input type="text" id="notes" onChange={handleControlledInputChange} required className="form-control" value={review.notes} />
+          </fieldset>
+        </section>
 
       </section>
 
       <div className="form-buttons">
-          <button
+          <button className="create-button"
             onClick={ClickAddReview}>
             Create Review
           </button>
 
-          <button
+          <button className="cancel-button"
             onClick={ClickCancel}>
             Cancel
           </button>
 
-          <button
+          {/* <button
             onClick={ClickLog}>
             Log
-          </button>
+          </button> */}
           
         </div>
     </main>
