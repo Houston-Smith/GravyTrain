@@ -32,30 +32,32 @@ export const ReviewDetails = () =>{
   };
 
   return (
-    <section>
+  <section>
     <section className="details-box">
       <h3>{review.locationName}</h3>
       <h4>{review.locationAddress}</h4>
       <section className="details-info">
-          <p>Butteriness: {review.butteryScore}</p>
-          <p>Flakiness: {review.flakeyScore}</p>
-          <p>Gravy Consistancy: {review.gravyScore}</p>
-          <p>Gravy Flavor: {review.flavorScore}</p>
-          <p>Delivery Flavor: {review.deliveryScore}</p>
-          <p>Average Score: {review.averageScore}</p>
-          <p>Gravy Type: {review.gravyType}</p>
-          <p>Notes: {review.notes}</p>
-          <h3>Tags:</h3>
+          <p><b>Butteriness:</b> {review.butteryScore}</p>
+          <p><b>Flakiness:</b> {review.flakeyScore}</p>
+          <p><b>Gravy Consistancy:</b> {review.gravyScore}</p>
+          <p><b>Gravy Flavor:</b> {review.flavorScore}</p>
+          <p><b>Delivery Flavor:</b> {review.deliveryScore}</p>
+          <p><b>Average Score:</b> {review.averageScore}</p>
+          <p><b>Gravy Type:</b> {review.gravyType}</p>
+          <p><b>Notes:</b> {review.notes}</p>
+          <h4>Tags:</h4>
           <div>
             {tags.map(tag => (
               <p>{tag.name}</p>       
               ))}
           </div>
       </section>
-  </section>
-      <button className="details-large-button" onClick={() => {callDeleteReview(reviewId)} }>Delete Review</button>
-      <button className="details-large-button" onClick={() => {navigate(`/review`)}}>Back to List</button>
-      <button className="details-large-button" onClick={() => {navigate(`/review/${reviewId}/edit`)}}>Edit Review</button>
+    </section>
+    <section className="details-buttons">
+      <button className="blue-button" onClick={() => {navigate(`/review`)}}>Back</button>
+      <button className="red-button" onClick={() => {callDeleteReview(reviewId)} }>Delete</button>
+      <button className="blue-button" onClick={() => {navigate(`/review/${reviewId}/edit`)}}>Edit</button>
+    </section>
   </section>
   )
 }
