@@ -1,25 +1,55 @@
 .details-box {
   display: flex;
   flex-direction: column;
-  background-color: #ffe8df;
-  box-shadow: 3px 3px 4px 4px rgba(0,0,0,0.4);
+  background-color: #06AED5;
+  box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.5);
   width: 100%;
   padding: 1em;
   border-radius: 5px;
+  border: 2px solid black;
 }
 
-.details-large-button {
+h3 {
+  margin: 0;
+  font-size: 40px;
+  font-weight: bolder;
+}
+
+h4 {
+  margin:.2em 0;
+  font-size: 25px;
+  text-decoration: underline;
+}
+
+.details-buttons button {
   margin-top: 2em;
+  margin-right: 1em;
   font-size:small;
   width: 7em;
   height: 3em;
-  background-color: #ffe8df;
-  box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.4);
+  box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.5);
+  border: 2px solid black;
   padding: .5em;
-  border: none;
   border-radius: 5px;
+  font-weight: bold;;
 }
 
-.details-large-button:hover{
-  box-shadow: 1px 1px 2px 2px rgba(0,0,0,0.4);
+.details-buttons button:hover{
+  box-shadow: 3px 3px 0px 0px rgba(0,0,0,0.4);
+}
+
+.blue-button {
+  background-color: #06AED5;
+}
+
+.blue-button:hover {
+  background-color: #086788;
+}
+
+.red-button {
+  background-color: #DD1C1A;
+}
+
+.red-button:hover {
+  background-color: #a11715;
 }
