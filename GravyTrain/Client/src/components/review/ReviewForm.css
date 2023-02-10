@@ -75,6 +75,10 @@
   background-color: #DD1C1A;
 }
 
+.cancel-button:hover {
+  background-color: #a11715;
+}
+
 .reviews {
   display: flex;
   justify-content: flex-start;
@@ -106,7 +110,7 @@
   font-size: 32px;
   position: absolute;
   left: 5px;
-  color: black;
+  color: rgb(0, 0, 0);
   transition: 0.3s;
 }
 
