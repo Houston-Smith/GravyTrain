@@ -31,18 +31,78 @@ export const ReviewDetails = () =>{
     .then(() => navigate(`/review`))
   };
 
+
+  const starCount = (value) => {
+    switch (value) {
+      case 1:
+      return (<p className="score-value"><b className="fa-solid fa-star-half"></b></p>)
+
+      case 2:
+      return (<p className="score-value"><b className="fa-solid fa-star"></b></p>)
+
+      case 3:
+      return (<p className="score-value"><b className="fa-solid fa-star"></b><b className="fa-solid fa-star-half"></b></p>)
+
+      case 4:
+      return (<p className="score-value"><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b></p>)
+
+      case 5:
+      return (<p className="score-value"><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star-half"></b></p>)
+
+      case 6:
+      return (<p className="score-value"><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b></p>)
+
+      case 7:
+      return (<p className="score-value"><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star-half"></b></p>)
+
+      case 8:
+      return (<p className="score-value"><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b></p>)
+
+      case 9:
+      return (<p className="score-value"><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star-half"></b></p>)
+
+      case 10:
+      return (<p className="score-value"><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b><b className="fa-solid fa-star"></b></p>)
+    }
+  }
+
   return (
   <section>
     <section className="details-box">
       <h3>{review.locationName}</h3>
       <h4>{review.locationAddress}</h4>
       <section className="details-info">
-          <p><b>Butteriness:</b> {review.butteryScore}</p>
-          <p><b>Flakiness:</b> {review.flakeyScore}</p>
-          <p><b>Gravy Consistancy:</b> {review.gravyScore}</p>
-          <p><b>Gravy Flavor:</b> {review.flavorScore}</p>
-          <p><b>Delivery Flavor:</b> {review.deliveryScore}</p>
-          <p><b>Average Score:</b> {review.averageScore}</p>
+
+          <section className="score">
+            <p><b>Butteriness:</b></p>    
+            {starCount(review.butteryScore)}
+          </section>
+
+          <section className="score">
+            <p><b>Flakiness:</b></p>
+            {starCount(review.flakeyScore)}
+          </section>
+
+          <section className="score">
+            <p><b>Gravy Consistancy:</b></p>
+            {starCount(review.gravyScore)}
+          </section>
+
+          <section className="score">
+            <p><b>Gravy Flavor:</b></p>
+            {starCount(review.flavorScore)} 
+          </section>
+
+          <section className="score">
+            <p><b>Delivery:</b></p>
+            {starCount(review.deliveryScore)}
+          </section>
+
+          <section className="score">
+            <p><b>Average:</b></p>
+            {starCount(review.averageScore)}
+          </section>
+          
           <p><b>Gravy Type:</b> {review.gravyType}</p>
           <p><b>Notes:</b> {review.notes}</p>
           <h4>Tags:</h4>
