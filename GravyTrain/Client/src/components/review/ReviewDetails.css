@@ -53,3 +53,22 @@ h4 {
 .red-button:hover {
   background-color: #a11715;
 }
+
+.score {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.score-value {
+  margin-left: .2em;
+  font-size: larger;
+  font-family: fontAwesome;
+  color: yellow;
+  letter-spacing: .2em;
+}
+
+.score-value input:nth-child(2n+1)::before {
+  right: 5px;
+  left: initial;
+}
