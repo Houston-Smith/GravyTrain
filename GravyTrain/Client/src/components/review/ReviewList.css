@@ -27,6 +27,25 @@ body {
   size: 10em;
 }
 
+.review-card h2 {
+ margin-bottom: 0;
+ margin-top: .2em;
+}
+
+.review-card h5 {
+  margin-top: 0;
+  font-size: medium;
+}
+
+.review-card h6 {
+  margin: 0;
+  padding: 0;
+}
+
+.tag-list {
+  list-style: none;
+}
+
 .review-card:hover{
   transform: scale(1.1);
   background-color: #086788;
@@ -88,3 +107,6 @@ body {
   box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.7);
   background-color: #a11715;
 }
+
+
+

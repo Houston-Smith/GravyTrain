@@ -16,15 +16,31 @@ h3 {
 }
 
 h4 {
-  margin:.2em 0;
+  margin: .2em 0 0;
   font-size: 25px;
   text-decoration: underline;
 }
 
+h5{
+  margin-top: .3em;
+  font-size: 20px;
+  margin-bottom: .5em;
+}
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  background-color: #086788;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: .5em .3em;
+  margin-top: 1em;
+}
+
 .details-buttons button {
-  margin-top: 2em;
+  margin-top: 1em;
   margin-right: 1em;
-  font-size:small;
+  font-size: medium;
   width: 7em;
   height: 3em;
   box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.5);
@@ -54,21 +70,31 @@ h4 {
   background-color: #a11715;
 }
 
+.score-list {
+  margin: 1em 0;
+  border: 1px black solid;
+  padding: 0 .5em;
+}
+
 .score {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
+  margin: 0;
 }
 
 .score-value {
   margin-left: .2em;
+  margin-top: .3em;
   font-size: larger;
   font-family: fontAwesome;
   color: #F0C808;
   letter-spacing: .2em;
+  margin-bottom: 0;
 }
 
 .score-value input:nth-child(2n+1)::before {
   right: 5px;
   left: initial;
 }
+

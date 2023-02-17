@@ -45,9 +45,11 @@ export const ReviewCard = ({review, callDeleteReview}) => {
 
   return (
     <section className="review-card" onClick={() => {navigate(`/review/${review.id}/details`)}}>
-            <h2><b>{review.locationName}</b></h2>  
+            <h2><b>{review.locationName}</b></h2>
+            <h6>{review.locationAddress}</h6>
+            <h5>{review.gravyType} Gravy</h5>  
             {starCount(review.averageScore)}                    
-            <p>{review.tags.map(tag =>
+            <p className="tag-list">{review.tags.map(tag =>
               <li key={tag.id}>{tag.name}</li>
               )}
             </p>  
