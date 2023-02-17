@@ -62,11 +62,10 @@ body {
 
 .review-card-buttons button {
   background-color: rgba(0,0,0,0);
-  border:none;
+  border:2px black solid;
   text-shadow: 3px 3px 4px 4px rgba(0,0,0,0.4);
   color: #DD1C1A;
   font-size: 2em;
-
   font-weight: bolder;
 }
 
@@ -99,7 +98,7 @@ body {
   background-color: #DD1C1A;
   box-shadow: 7px 7px 0px 0px rgba(0,0,0,0.7);
   padding: .5em;
-  border: none;
+  border: 2px black solid;
   border-radius: 5px;
 }
 
