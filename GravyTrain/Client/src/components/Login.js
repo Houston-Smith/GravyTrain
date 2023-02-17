@@ -81,37 +81,34 @@ export default function Login() {
     //   </fieldset>
     // </Form>
 
-<fieldset className="LoginFieldset">
+<section className="LoginSection">
+  <fieldset className="LoginFieldset">
 
-<section>
-  <b><p className="input-paragraph">Email</p></b> 
-  <fieldset className="input-fieldset">
-    <label htmlFor="locationName"></label>
-    <input  type="text" id="locationName" onChange={(e) => setEmail(e.target.value)} required autoFocus className="form-control"/>
-    </fieldset>
+    <section>
+      <b><p className="input-paragraph">Email</p></b> 
+      <fieldset className="login-fieldset">
+        <input  type="text" onChange={(e) => setEmail(e.target.value)} required autoFocus className="login-form-control"/>
+      </fieldset>
+    </section>
+
+    <section>
+      <b><p className="input-paragraph">Password</p></b> 
+      <fieldset className="login-fieldset">
+        <input  type="text" onChange={(e) => setPassword(e.target.value)} required className="login-form-control"/>
+      </fieldset>
+    </section>
+
+  </fieldset>
+    <div className="login-buttons">
+      <button className="login-button"
+        onClick={loginSubmit}>
+        Login
+      </button>
+      <button className="register-button"
+        onClick={() => {navigate(`/register`)}}>Register
+      </button>
+   </div>
+
 </section>
-
-<section>
-  <b><p className="input-paragraph">Password</p></b> 
-  <fieldset className="input-fieldset">
-    <label htmlFor="locationName"></label>
-    <input  type="text" id="locationName" onChange={(e) => setPassword(e.target.value)} required autoFocus className="form-control"/>
-    </fieldset>
-</section>
-
-<div className="form-buttons">
-
-  <button className="login-button"
-    onClick={loginSubmit}>
-    Login
-  </button>
-  
-  <button className="register-button"
-    onClick={() => {navigate(`/register`)}}>Register</button>
-
-</div>
-
-
-</fieldset>
   );
 }
