@@ -1,15 +1,66 @@
+.LoginSection{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .LoginFieldset {
   display: flex;
   flex-direction: column;
   background-color: #06AED5;
-  box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.5);
-  width: 50%;
+  box-shadow: 8px 8px 0px 0px rgba(0,0,0,0.5);
+  width: 20%;
   padding: 1em;
   border-radius: 5px;
   border: 2px solid black;
 }
 
-.input-fieldset {
+.login-fieldset {
   padding: 0em;
   margin: 2px 0 20px;
+  width: 80%;
+  border: none;
 }
+
+.login-form-control {
+  border: 2px solid black;
+  Width: 100%;
+  Height: 2em;
+  font-weight: bold;
+}
+
+
+.login-buttons button {
+  margin-top: 2em;
+  margin-left: 1em;
+  font-size:small;
+  font-weight: bold;
+  width: 10em;
+  height: 3em;
+  box-shadow: 5px 5px 0px 0px rgba(0,0,0,0.5);
+  border: 2px solid black;
+  padding: .5em;
+  border-radius: 5px;
+}
+
+.login-buttons button:hover {
+  box-shadow: 2px 2px 0px 0px rgba(0,0,0,0.5);
+}
+
+.login-button {
+  background-color: #06AED5;
+}
+
+.login-button:hover {
+  background-color: #086788;
+}
+
+.register-button {
+  background-color: #DD1C1A;
+}
+
+.register-button:hover {
+  background-color: #a11715;
+}
+
