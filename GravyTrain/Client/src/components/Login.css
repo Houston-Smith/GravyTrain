@@ -1,0 +1,15 @@
+.LoginFieldset {
+  display: flex;
+  flex-direction: column;
+  background-color: #06AED5;
+  box-shadow: 10px 10px 0px 0px rgba(0,0,0,0.5);
+  width: 50%;
+  padding: 1em;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.input-fieldset {
+  padding: 0em;
+  margin: 2px 0 20px;
+}
