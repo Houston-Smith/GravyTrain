@@ -23,6 +23,7 @@ export default function Header({ isLoggedIn }) {
       {isLoggedIn && (
         <li className="nav-item">
           <Link className="nav-link" to="/login" onClick={logout}>Logout</Link>
+          <Link className="nav-link" to="/review">Reviews</Link>
         </li>
       )}
 
