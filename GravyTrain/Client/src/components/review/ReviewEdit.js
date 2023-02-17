@@ -150,6 +150,22 @@ export const ReviewEdit = () => {
               <option value={10}>10</option>
             </select>  
 				</fieldset>
+
+        <b><p className="name">Butteriness</p></b>
+          <div className="reviews">
+            <div className="rating">
+              <input onChange={handleFieldChange} id="butteryScore" type ="radio" name="buttery" value={10}/>
+              <input onChange={handleFieldChange} id="butteryScore" type ="radio" name="buttery" value={9}/>
+              <input onChange={handleFieldChange} id="butteryScore" type ="radio" name="buttery" value={8}/>
+              <input onChange={handleFieldChange} id="butteryScore" type ="radio" name="buttery" value={7}/>
+              <input onChange={handleFieldChange} id="butteryScore" type ="radio" name="buttery" value={6}/>
+              <input onChange={handleFieldChange} id="butteryScore" type ="radio" name="buttery" value={5}/>
+              <input onChange={handleFieldChange} id="butteryScore" type ="radio" name="buttery" value={4}/>
+              <input onChange={handleFieldChange} id="butteryScore" type ="radio" name="buttery" value={3}/>
+              <input onChange={handleFieldChange} id="butteryScore" type ="radio" name="buttery" value={2}/>
+              <input onChange={handleFieldChange} id="butteryScore" type ="radio" name="buttery" value={1}/>
+            </div>
+        </div>
       
         <fieldset>
 						<label htmlFor="flakeyScore">Flakiness: </label>

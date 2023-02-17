@@ -1,0 +1,37 @@
+nav {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2em;
+}
+
+.nav-item {
+  margin: .5em 1em;
+  list-style: none;
+}
+
+.nav-item a{
+  text-decoration: none; 
+  color: white;
+  font-size: larger;
+  font-weight: bolder;
+  margin-right: 1em;
+}
+
+.nav-item a:hover{
+  text-decoration: none; 
+  color: red
+}
+
+.nav-item a:active{
+  text-decoration: none; 
+  color: rgb(142, 1, 1)
+}
+
+.navbar {
+  background-color: black;
+}
+
+.nav p {
+  color: red;
+  margin-right: 1em;
+}

@@ -70,47 +70,55 @@ export const ReviewDetails = () =>{
   <section>
     <section className="details-box">
       <h3>{review.locationName}</h3>
+      <section className="score-average">
+        {starCount(review.averageScore)}
+      </section>
       <h4>{review.locationAddress}</h4>
       <section className="details-info">
 
-          <section className="score">
-            <p><b>Butteriness:</b></p>    
-            {starCount(review.butteryScore)}
-          </section>
+          <h5><b>{review.gravyType} Gravy</b></h5>
 
-          <section className="score">
-            <p><b>Flakiness:</b></p>
-            {starCount(review.flakeyScore)}
-          </section>
+          <section className="score-list">
+            <section className="score">
+              <p><b>Butteriness:</b></p>    
+              {starCount(review.butteryScore)}
+            </section>
 
-          <section className="score">
-            <p><b>Gravy Consistancy:</b></p>
-            {starCount(review.gravyScore)}
-          </section>
+            <section className="score">
+              <p><b>Flakiness:</b></p>
+              {starCount(review.flakeyScore)}
+            </section>
 
-          <section className="score">
-            <p><b>Gravy Flavor:</b></p>
-            {starCount(review.flavorScore)} 
-          </section>
+            <section className="score">
+              <p><b>Gravy Consistancy:</b></p>
+              {starCount(review.gravyScore)}
+            </section>
 
-          <section className="score">
-            <p><b>Delivery:</b></p>
-            {starCount(review.deliveryScore)}
-          </section>
+            <section className="score">
+              <p><b>Gravy Flavor:</b></p>
+              {starCount(review.flavorScore)} 
+            </section>
 
-          <section className="score">
-            <p><b>Average:</b></p>
-            {starCount(review.averageScore)}
+            <section className="score">
+              <p><b>Delivery:</b></p>
+              {starCount(review.deliveryScore)}
+            </section>
           </section>
           
-          <p><b>Gravy Type:</b> {review.gravyType}</p>
-          <p><b>Notes:</b> {review.notes}</p>
           <h4>Tags:</h4>
           <div>
             {tags.map(tag => (
               <p>{tag.name}</p>       
               ))}
           </div>
+          
+          
+          <section className="notes">
+            <b>Notes:</b>
+            {review.notes}
+          </section>
+          
+
       </section>
     </section>
     <section className="details-buttons">

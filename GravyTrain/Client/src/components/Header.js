@@ -11,6 +11,7 @@ import {
   NavLink,
 } from "reactstrap";
 import { logout } from "../modules/authManager";
+import "./Header.css"
 
 export default function Header({ isLoggedIn }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +23,7 @@ export default function Header({ isLoggedIn }) {
       {isLoggedIn && (
         <li className="nav-item">
           <Link className="nav-link" to="/login" onClick={logout}>Logout</Link>
+          <Link className="nav-link" to="/review">Reviews</Link>
         </li>
       )}
 
